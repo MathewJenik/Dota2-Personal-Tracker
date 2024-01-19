@@ -42,3 +42,7 @@ The Dota 2 Personal Tracker is a web application built using the MERN (MongoDB, 
 git clone https://github.com/your-username/dota2-personal-tracker.git
 cd dota2-personal-tracker
 ```
+
+2. Make sure .env file is added:
+.env file needs the following:
+DB_URI={DATABASEURI}
