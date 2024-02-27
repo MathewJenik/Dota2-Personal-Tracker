@@ -1,0 +1,139 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+:root {
+  --dark-charcoal: #2C3E50;
+  --light-charcoal: #34495E;
+  --white: #ffffff;
+  --blue: #3498DB;
+
+}
+
+html {
+  background-color: var(--dark-charcoal);
+  width: 100vw;
+  min-height: 100vh;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  color: var(--white);
+}
+
+button, a {
+  color: var(--white) !important;
+}
+/* Pregenerated CSS */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+.page {
+  min-height: 100vh;
+
+}
+
+.hero {
+  min-height: 25em;
+}
+
+.form {
+  min-height: 10em;
+  background-color: var(--white);
+}
+
+.foreground {
+  margin: auto;
+  width: 80vw;
+  min-height: 80vh;
+  background-color: var(--light-charcoal);
+}
+
+
+/* Containers:*/
+
+.item-container, .hero-container {
+  min-width: 15em;
+  max-width: 20em;
+  padding: 1em;
+  margin: 1em;
+  background-color: var(--light-charcoal);
+  display: inline-flex;
+  min-height: 20em;
+  flex-direction: column;
+}
+
+.item-heading, .hero-heading {
+  background-color: var(--blue);
+  font-weight: bold;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.item-heading:first-child, .hero-heading:first-child {
+  padding-left: 0.5em;
+}
+
+.item-container > img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.item-container .gold {
+  background-color: gold;
+  color: var(--dark-charcoal);
+  border-radius: 10px;
+}
+
+.edit-button {
+  background-color: var(--blue);
+  border: 1px solid var(--dark-charcoal);
+  padding: 0.5em;
+  border-radius: 0.5em;
+  align-self: auto;
+  margin-top: auto;
+  display:block;
+  width: 100%;
+}
+
+
+.create-new-container {
+  min-width: 15em;
+  max-width: 20em;
+  padding: 1em;
+  margin: 1em;
+  background-color: var(--light-charcoal);
+  display: inline-flex;
+  min-height: 20em;
+  flex-direction: column;
+}
+
+.create-new-container button {
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  fill: var(--blue);
+}
+
+
+
+
+/* */
+.item-container svg {
+  fill: white;
+}

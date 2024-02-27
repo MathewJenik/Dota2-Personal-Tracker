@@ -46,3 +46,7 @@ cd dota2-personal-tracker
 2. Make sure .env file is added:
 .env file needs the following:
 DB_URI={DATABASEURI}
+
+
+3. To run use to following:
+npm run dev

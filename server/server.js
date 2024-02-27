@@ -33,6 +33,18 @@ app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, '/public')))
 app.use('/', require('./routes/root.js'))
 
+// route for the user
+app.use('/users', require('./routes/userRoutes.js'))
+
+// route for the Hero
+app.use('/heroes', require('./routes/heroRoutes.js'))
+
+// route for the Item
+app.use('/items', require('./routes/itemRoutes.js'))
+
+// route for the Ability
+app.use('/abilities', require('./routes/abilityRoutes.js'))
+
 // 404 page setup
 app.all('*', (req, res) => {
     res.status(404)
@@ -61,3 +73,5 @@ mongoose.connection.on('error', error => {
     logEvents(`${error.no}: ${error.code}\t${error.syscall}\t${error.hostname}`, 'mongoErrorLog.log')
 
 })
+
+
