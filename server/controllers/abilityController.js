@@ -17,6 +17,21 @@ const getAllAbilities = asyncHandler(async (req, res) => {
 
 })
 
+
+// @desc Get a singular Ability
+// @route Get /ability/:{id}
+// @access Private
+const getSingularAbility  = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const ability = await Ability.findOne({_id: id}).lean().exec();
+    
+    if (!ability) {
+        return res.status(404).json({message: "Ability not found"})
+    }
+    res.json(ability);
+    
+})
+
 // @desc Create a new Ability
 // @route Post /abilities
 // access Private
@@ -61,6 +76,7 @@ const updateAbility = asyncHandler(async (req, res) => {
     }
 
     const ability = await Ability.findById(id).exec();
+    console.log("ID: ", id, " | ", ability);
 
     if (!ability) {
         return res.status(400).json({message: "Ability not Found."})
@@ -119,5 +135,6 @@ module.exports = {
     getAllAbilities,
     createAbility,
     updateAbility,
-    deleteAbility
+    deleteAbility,
+    getSingularAbility
 }

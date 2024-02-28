@@ -3,10 +3,12 @@
 3. [ ] Custom player information based off each in game hero.
 4. [ ] Collection of dota 2 item and hero data
 5. [ ] Dota 2 Patch Notes section
-6. [ ] Hero Description pages
-7. [ ] Item Description pages
-8. [ ] Item Editing
-9. [ ] Hero Editing
+6. [x] Hero Description pages
+7. [x] Item Description pages
+8. [x] Item Editing
+9. [x] Hero Editing
+10. [x] Ability Description
+11. [x] Ability Editing
 
 
 Database:
@@ -16,6 +18,7 @@ User:
 - 
 Hero:
 - name
+- description
 - primaryAttribute
 - imageLoc
 - abilites
@@ -51,3 +54,5 @@ item:
 - predecessorPath
 - imageLoc
 - active
+
+- ability:

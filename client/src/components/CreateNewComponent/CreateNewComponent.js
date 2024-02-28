@@ -1,11 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const CreateNewComponent = () => {
+const CreateNewComponent = ({urlTo}) => {
 
     
     const navigate = useNavigate()
-    const handleEdit = () => navigate(`/admin/item/create/`);
+    const handleEdit = () => navigate(`${urlTo}`);
 
   return (
     <li className='create-new-container'>

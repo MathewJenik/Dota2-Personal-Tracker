@@ -9,4 +9,6 @@ router.route('/')
     .patch(heroController.updateHero)
     .delete(heroController.deleteHero)
 
+router.route('/:id').get(heroController.getSingularHero)
+
 module.exports = router

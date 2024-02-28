@@ -22,30 +22,66 @@ function App() {
         <Route path="dashboard" element={<Player />}>
           <Route path="heroes" element={<></>}/>
         </Route>
+
+        <Route path="heroes" element={<HeroList adminMode={false}/>} />
+        
+        <Route path="items" element={<ItemList adminMode={false}/>} />
+
         
         <Route path='admin'>
           <Route path='users' element={<UsersList/>} />
-          <Route path='items' element={<ItemList/>} />
-          <Route path='heroes' element={<HeroList/>} />
-          <Route path='abilities' element={<AbilityList/>} />
+          <Route path='items' element={<ItemList adminMode={true}/>} />
+          <Route path='heroes' element={<HeroList adminMode={true}/>} />
+          <Route path='abilities' element={<AbilityList adminMode={true}/>} />
           
-
+          {/* Items */}
           <Route path='item/edit/:id'
             element={<Edit recUrl="http://localhost:3500/items" 
             editUrl="http://localhost:3500/items" 
             deleteUrl="http://localhost:3500/items"
             inputs={['name', 'cost', 'alterations', 'description', 'upgradePath', 'predecessorPath', 'imageLoc', 'active']}
             
-            />} />
+          />}/>
 
           <Route path='item/create' element={<Create
             createUrl="http://localhost:3500/items"
             inputs={['name', 'cost', 'alterations', 'description', 'upgradePath', 'predecessorPath', 'imageLoc', 'active']}
             
             inputsType={['String', 'Number', 'String', 'String', 'Array', 'Array', 'String', 'Boolean']}
-            />} 
-            />
-          
+          />}/>
+
+          {/* Heroes */}
+          <Route path='hero/create' element={<Create
+            createUrl="http://localhost:3500/heroes"
+            inputs={['name', 'description', 'primaryAttribute', 'imageLoc', 'abilities', 'active']}
+            inputsType={['String', 'String', 'String', 'String', 'ArrayS', 'Boolean']}
+          />}/>
+
+          <Route path='hero/edit/:id'
+            element={<Edit recUrl="http://localhost:3500/heroes" 
+            editUrl="http://localhost:3500/heroes" 
+            deleteUrl="http://localhost:3500/heroes"
+            inputs={['name', 'description', 'primaryAttribute', 'imageLoc', 'abilities', 'active']}
+            inputsType={['String', 'String', 'String', 'String', 'ArrayS', 'Boolean']}
+          />}/>
+
+
+          {/* Abilities */}
+          <Route path='ability/create' element={<Create
+            createUrl="http://localhost:3500/abilities"
+            inputs={['name', 'description', 'cooldown', 'manaCost', 'healthCost', 'castRange', 'radius', 'duration', 'imageLoc']}
+            inputsType={['String', 'String', 'ArrayN', 'ArrayN', 'ArrayN', 'ArrayN', 'ArrayN', 'ArrayN', 'String']}
+          />}/>
+
+          <Route path='ability/edit/:id'
+            element={<Edit recUrl="http://localhost:3500/abilities" 
+            editUrl="http://localhost:3500/abilities" 
+            deleteUrl="http://localhost:3500/abilities"
+            inputs={['name', 'description', 'cooldown', 'manaCost', 'healthCost', 'castRange', 'radius', 'duration', 'imageLoc']}
+            inputsType={['String', 'String', 'ArrayN', 'ArrayN', 'ArrayN', 'ArrayN', 'ArrayN', 'ArrayN', 'String']}
+            
+          />}/>
+
         </Route>
 
       </Route>

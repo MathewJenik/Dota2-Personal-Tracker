@@ -3,7 +3,7 @@ import { useGetItemsQuery } from './ItemsApiSlice'
 import Item from './Item'
 import CreateNewComponent from '../../components/CreateNewComponent/CreateNewComponent';
 
-function ItemList() {
+function ItemList({adminMode}) {
 
     const {
         data: item,
@@ -22,12 +22,12 @@ function ItemList() {
     if (isSuccess) {
         const {ids} = item
         const tableContent = ids?.length
-        ? ids.map(itemId => <Item key={itemId} itemId={itemId} adminMode={true}/>)
+        ? ids.map(itemId => <Item key={itemId} itemId={itemId} adminMode={adminMode}/>)
         : null
 
         content = (
             <ul>
-                <CreateNewComponent />
+                <CreateNewComponent urlTo={'/admin/item/create/'}/>
                 {tableContent}
             </ul>   
         )

@@ -6,7 +6,8 @@ import { selectAbilityById } from './AbilitiesApiSlice'
 
 import React, { useEffect, useState } from 'react'
 
-const Ability = ({abilityId}) => {
+
+const Ability = ({abilityId, adminMode}) => {
   const ability = useSelector(state => selectAbilityById(state, abilityId))
 
   const [iconToDisplay, setIconToDisplay] = useState('');
@@ -20,11 +21,23 @@ const Ability = ({abilityId}) => {
 
   if (ability) {
 
-    const handleEdit = () => navigate(`/admin/ability/${abilityId}`)
+    const handleEdit = () => navigate(`/admin/ability/edit/${abilityId}`)
 
-    const abilityesPrimaryAttribute = ability.primaryAttribute.toString()
     const cellStatus = ability.active ? '' : 'table__cell--inactive'
 
+    var healthCostString = "";
+    for (var hp in ability.healthCost) {
+      healthCostString += ability.healthCost[hp] + "|";
+    }
+    
+    healthCostString = healthCostString.substring(0, healthCostString.length-1)
+
+    var manaCostString = "";
+    for (var mp in ability.manaCost) {
+      manaCostString += ability.manaCost[mp] + "|";
+    }
+    
+    manaCostString = manaCostString.substring(0, manaCostString.length-1)
 
     const itemImageLoc = ability.imageLoc.toString()
 
@@ -33,13 +46,18 @@ const Ability = ({abilityId}) => {
         <li className='ability-container'>
           <div className='ability-heading'>
             <h3 className=''>{ability.name}</h3>
-            <img src={"/"+iconToDisplay}  />
+            <div>
+              <h3 className='healthCost'>{healthCostString}</h3>
+              <h3 className='manaCost'>{manaCostString}</h3>
+            </div>
           </div>
           
-          
           <img src={"/"+itemImageLoc}  />
-          <button onclick={handleEdit}>Edit</button>
-            
+
+          {adminMode && (
+              <button className='edit-button' onClick={handleEdit}>Edit</button>
+            )
+            }
         </li>
     )
 

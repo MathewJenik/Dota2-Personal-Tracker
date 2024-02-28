@@ -5,6 +5,10 @@ const heroSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
     primaryAttribute: {
         type: String,
         required: true

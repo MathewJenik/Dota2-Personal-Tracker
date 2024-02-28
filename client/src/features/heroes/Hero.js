@@ -5,13 +5,19 @@ import { useNavigate } from 'react-router-dom'
 import { selectHeroById } from './HeroesApiSlice'
 
 import React, { useEffect, useState } from 'react'
+import { LoadAbility } from '../api/apiFunctions'
 
-const Hero = ({heroId}) => {
+
+const Hero = ({heroId, adminMode}) => {
   const hero = useSelector(state => selectHeroById(state, heroId))
 
   const [iconToDisplay, setIconToDisplay] = useState('');
 
   const navigate = useNavigate()
+
+  const [abilityImageLocs, setAbilityImageLocs] = useState([]);
+  
+  const [abilityIDs, setAbilityIDs] = useState([]);
 
 
   useEffect(() => {
@@ -30,11 +36,37 @@ const Hero = ({heroId}) => {
         setIconToDisplay('assets/images/general/Universal_attribute_symbol.webp');
       break;
     }
-  })
+
+  }, [hero])
+
+
+  useEffect(() => {
+    const fetchAbilityImages = async () => {
+
+      const imageLocs = [];
+      const imageIDs = [];
+      const abilString = JSON.parse(hero.abilities);
+      for (const ability in abilString[0]) {
+        const imgLoc = await LoadAbility(abilString[0][ability]);
+        imageLocs.push(imgLoc.imageLoc);
+        imageIDs.push(imgLoc._id);
+      }
+      setAbilityImageLocs(imageLocs);
+      setAbilityIDs(imageIDs);
+
+    }
+
+    if (hero) {
+      fetchAbilityImages();
+    }
+  
+  }, [hero]);
 
   if (hero) {
 
-    const handleEdit = () => navigate(`/admin/hero/${heroId}`)
+    const handleEdit = () => navigate(`/admin/hero/edit/${heroId}`)
+
+    
 
     const heroesPrimaryAttribute = hero.primaryAttribute.toString()
     const cellStatus = hero.active ? '' : 'table__cell--inactive'
@@ -52,7 +84,19 @@ const Hero = ({heroId}) => {
           
           
           <img src={"/"+itemImageLoc}  />
-          <button onclick={handleEdit}>Edit</button>
+          <div className='hero-abilities'>
+            {abilityImageLocs.map((image, index) => <img className="hero-ability-image" src={"/"+image} onClick={() => 
+              navigate(`/ability/${abilityIDs[index]}`)
+            } />)
+            }
+          </div>
+          <p>{hero.description}</p>
+
+
+
+          {adminMode && (
+              <button className='edit-button' onClick={handleEdit}>Edit</button>
+          )}
             
         </li>
     )

@@ -16,13 +16,27 @@ const getAllHeroes = asyncHandler(async (req, res) => {
 
 })
 
+// @desc Get a singular Hero
+// @route Get /hero/:{id}
+// @access Private
+const getSingularHero  = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const hero = await Hero.findOne({_id: id}).lean().exec();
+
+    if (!hero) {
+        return res.status(404).json({message: "Hero not found"})
+    }
+    res.json(hero);
+    
+})
+
 // @desc Create a new Hero
 // @route Post /heroes
 // access Private
 const createHero = asyncHandler(async (req, res) => {
-    const {name, primaryAttribute, imageLoc, abilities} = req.body
+    const {name, description, primaryAttribute, imageLoc, abilities} = req.body
     
-    if (!name || !primaryAttribute || !imageLoc || !Array.isArray(abilities)) {
+    if (!name || !description || !primaryAttribute || !imageLoc || !Array.isArray(abilities)) {
         return res.status(400).json({message: "Fields not completed"})
     }
 
@@ -34,7 +48,7 @@ const createHero = asyncHandler(async (req, res) => {
     }
 
 
-    const heroObj = {name, primaryAttribute, imageLoc, abilities}
+    const heroObj = {name, description, primaryAttribute, imageLoc, abilities}
 
     // create and store the hero
     const hero = await Hero.create(heroObj)
@@ -52,36 +66,39 @@ const createHero = asyncHandler(async (req, res) => {
 // access Private
 const updateHero = asyncHandler(async (req, res) => {
     // getting data
-    const {id, name, primaryAttribute, imageLoc, abilities} = req.body;
-
+    const {id, name, description, primaryAttribute, imageLoc, abilities} = req.body;
+    console.log(abilities)
     // confirm data
-    if (!id || !name || !primaryAttribute || !imageLoc || !Array.isArray(abilities)) {
+    if (!id || !description || !name || !primaryAttribute || !imageLoc || !Array.isArray(abilities)) {
         return res.status(400).json({message: "All fields are required"});
     }
 
     const hero = await Hero.findById(id).exec();
-
+    
     if (!hero) {
         return res.status(400).json({message: "Hero not found"});
     }
-
+    
     // check for a duplicate user
-
+    
     const dup = await Hero.findOne({name}).lean().exec();
     
     // allow updates to original, checking for same id
     if (dup && dup?._id.toString() !== id) {
         return res.status(409).json({message: "Duplicate Username."});
     }
-
+    
     hero.name = name;
+    hero.description = description;
     hero.primaryAttribute = primaryAttribute;
     hero.imageLoc = imageLoc;
-    hero.abilities = abilities;
-
+    hero.abilities = JSON.stringify(abilities);
+    
+    console.log("HERO ABILITIES:" ,hero.abilities)
     const updatedHero = await hero.save();
+    console.log(updatedHero)
     res.json({message: `${updatedHero.name} updated`})
-
+    
 })
 
 // @desc Delete a hero
@@ -104,8 +121,8 @@ const deleteHero = asyncHandler(async (req, res) => {
         return res.status(400).json({message: 'Hero Not Found'});
     }
 
-    const result = await user.deleteOne();
-    const reply = `Hero - ${username} with ID ${id} deleted`;
+    const result = await hero.deleteOne();
+    const reply = `Hero - ${name} with ID ${id} deleted`;
 
     res.json(reply);
 
@@ -116,5 +133,6 @@ module.exports = {
     getAllHeroes,
     createHero,
     updateHero,
-    deleteHero
+    deleteHero,
+    getSingularHero
 }
