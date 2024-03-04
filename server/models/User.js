@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     DotaID: {
         type: String,
-        required: true
+        required: false
     },
     roles: [{
         type: String,

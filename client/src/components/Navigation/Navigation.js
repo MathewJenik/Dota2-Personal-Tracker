@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import './Navigation.css';
+import useAuth from '../../hooks/useAuth';
+import { ROLES } from '../../config/roles';
 
 const Navigation = () => {
+
+  const {username, status} = useAuth()
+
+
 
     const [dashExpand, setDashExpand] = useState(false);
 
@@ -25,7 +31,14 @@ const Navigation = () => {
             </div>
             )}
         </Link>
+
+        
         </div>
+
+        {status==ROLES.Admin && (
+            <Link to={'admin'}>Admin</Link>
+        )}
+        <Link to={'login'}>Login</Link>
 
     </div>
   )

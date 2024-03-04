@@ -21,20 +21,23 @@ const Hero = ({heroId, adminMode}) => {
 
 
   useEffect(() => {
-    
-    switch(hero.primaryAttribute.toString()) {
-      case "Strength":
-        setIconToDisplay('assets/images/general/Strength_attribute_symbol.webp');
-      break;
-      case "Agility":
-        setIconToDisplay('assets/images/general/Agility_attribute_symbol.webp');
-      break;
-      case "Intelligence":
-        setIconToDisplay('assets/images/general/Intelligence_attribute_symbol.webp');
-      break;
-      case "Universal":
-        setIconToDisplay('assets/images/general/Universal_attribute_symbol.webp');
-      break;
+    if (hero) {
+      
+      switch(hero.primaryAttribute.toString()) {
+        case "Strength":
+          setIconToDisplay('assets/images/general/Strength_attribute_symbol.webp');
+        break;
+        case "Agility":
+          setIconToDisplay('assets/images/general/Agility_attribute_symbol.webp');
+        break;
+        case "Intelligence":
+          setIconToDisplay('assets/images/general/Intelligence_attribute_symbol.webp');
+        break;
+        case "Universal":
+          setIconToDisplay('assets/images/general/Universal_attribute_symbol.webp');
+        break;
+      }
+      
     }
 
   }, [hero])
@@ -58,6 +61,7 @@ const Hero = ({heroId, adminMode}) => {
 
     if (hero) {
       fetchAbilityImages();
+
     }
   
   }, [hero]);

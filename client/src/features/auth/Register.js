@@ -3,18 +3,15 @@ import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import { useNavigate } from 'react-router-dom'
-import usePersist from '../../hooks/usePersist'
 
-import { saveTokenToLocalStorage } from '../api/storage'
 
-const Login = () => {
+const Register = () => {
 
   const userRef = useRef();
   const errRef = useRef();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [persist, setPersist] = usePersist()
 
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -28,8 +25,6 @@ const Login = () => {
   const handleUsernameInput = (e) => setUsername(e.target.value)
   const handlePasswordInput = (e) => setPassword(e.target.value)
 
-  const handleToggle = () => setPersist(prev => !prev)
-
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -38,11 +33,7 @@ const Login = () => {
       dispatch(setCredentials({accessToken}));
       setUsername('');
       setPassword('');
-      console.log(accessToken);
-      if (accessToken) {
-        saveTokenToLocalStorage(accessToken)
-        navigate('/dashboard');
-      }
+      navigate('/dashboard');
     } catch (error) {
       if (!error.status) {
         setErrorMessage('No Server Response');
@@ -54,9 +45,7 @@ const Login = () => {
         setErrorMessage(error.data?.message)
       }
 
-      if (errRef.current) { 
-        errRef.current.focus();
-      }
+      errRef.current.focus();
     }
 
   }
@@ -65,7 +54,7 @@ const Login = () => {
     <div>
       <section>
         <header>
-          <h1>User Login</h1>
+          <h1>User Register</h1>
         </header>
         <main>
 
@@ -78,16 +67,6 @@ const Login = () => {
             <input id='password' placeholder='Password' onChange={handlePasswordInput}  required></input>
 
             <button>Sign In</button>
-
-            <label htmlFor='persist'
-              id="persist"
-              onChange={handleToggle}
-              checked={persist}>Trust This Device
-            </label>
-            
-            <input type="checkbox">
-              </input>
-
           </form>
 
         </main>
@@ -97,4 +76,4 @@ const Login = () => {
 
   return content
 }
-export default Login;
+export default Register;
