@@ -3,7 +3,7 @@ import { useGetItemsQuery } from './ItemsApiSlice'
 import Item from './Item'
 import CreateNewComponent from '../../components/CreateNewComponent/CreateNewComponent';
 
-function ItemList() {
+function ItemList({adminMode}) {
 
     const {
         data: item,
@@ -11,7 +11,11 @@ function ItemList() {
         isSuccess,
         isError,
         error
-    } = useGetItemsQuery()
+    } = useGetItemsQuery(null, {
+        pollingInterval: 60000, // 60 seconds, requery data after specified time.
+        refetchOnFocus: true, // collect data again if window has been changed (focus has switched)
+        refetchOnMountOrArgChange: true // collect data if mount
+    })
 
 
     let content;
@@ -22,12 +26,12 @@ function ItemList() {
     if (isSuccess) {
         const {ids} = item
         const tableContent = ids?.length
-        ? ids.map(itemId => <Item key={itemId} itemId={itemId} adminMode={true}/>)
+        ? ids.map(itemId => <Item key={itemId} itemId={itemId} adminMode={adminMode}/>)
         : null
 
         content = (
             <ul>
-                <CreateNewComponent />
+                <CreateNewComponent urlTo={'/admin/item/create/'}/>
                 {tableContent}
             </ul>   
         )

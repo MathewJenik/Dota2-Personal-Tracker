@@ -14,7 +14,7 @@ export const ItemsApiSlice = ApiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5,
+            /*keepUnusedDataFor: 5,*/
             transformResponse: responseData => {
                 const loadeditems = responseData.map(item => {
                     item.id = item._id
@@ -30,12 +30,52 @@ export const ItemsApiSlice = ApiSlice.injectEndpoints({
                     ]
                 } else return [{ type: 'Item', id: 'LIST'}]
             }
-        })
-    })
+        }),
+        addNewItem: builder.mutation({
+            query: initialItemData => ({
+                url: '/items',
+                method: 'POST',
+                body: {
+                    ...initialItemData,
+    
+                }
+            }),
+            invalidatesTags: [
+                {type: "Item", id: "LIST"}
+            ]
+        }),
+        updateItem: builder.mutation({
+            query: initialItemData => ({
+                url: "/items",
+                method: 'PATCH',
+                body: {
+                    ...initialItemData,
+                }
+    
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Item', id: arg.id }
+            ]
+        }),
+        deleteItem: builder.mutation({
+            query: ({id}) => ({
+                url: '/items',
+                method: "DELETE",
+                body: {id}
+            }),
+            invalidatesTags: (result, error, arg) => [
+                {type: 'Item', id: arg.id }
+            ]
+        }),
+    }),
+    
 })
 
 export const {
     useGetItemsQuery,
+    useAddNewItemMutation,
+    useUpdateItemMutation,
+    useDeleteItemMutation,
 } = ItemsApiSlice
 
 

@@ -24,8 +24,15 @@ const Create = (props) => {
         case 'Boolean':
           formattedValue = value === 'true'; // Convert string 'true' to boolean true
           break;
-        case 'Array':
-          formattedValue = Array("["+JSON.parse(JSON.stringify(value))+"]"); // Ensure proper formatting
+        case 'ArrayS':
+          formattedValue = Array(value.split("|")); // Ensure proper formatting
+          break;
+        case 'ArrayN':
+          formattedValue = Array(value.split("|"))
+          for (var index in formattedValue) {
+            formattedValue[index] = parseFloat(formattedValue[index]);
+          }
+          //formattedValue = Array(parseFloat(value)); // Ensure proper formatting
           break;
         default:
           formattedValue = value;

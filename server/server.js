@@ -33,6 +33,10 @@ app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, '/public')))
 app.use('/', require('./routes/root.js'))
 
+
+// route for Auth
+app.use('/auth', require('./routes/authRoutes.js'))
+
 // route for the user
 app.use('/users', require('./routes/userRoutes.js'))
 
@@ -44,6 +48,8 @@ app.use('/items', require('./routes/itemRoutes.js'))
 
 // route for the Ability
 app.use('/abilities', require('./routes/abilityRoutes.js'))
+
+
 
 // 404 page setup
 app.all('*', (req, res) => {

@@ -21,7 +21,16 @@ const Edit = (props) => {
         })
         .then(async response => {
             const data = await response.json();
-            setKeyValueArray(Object.entries(data));
+            //setKeyValueArray(Object.entries(data));
+
+            const kv = Object.entries(data);
+
+            if (kv[0][0] === "_id") {
+                kv[0] = ['id', data._id];
+                delete data._id;
+            }
+            setKeyValueArray(kv);
+                
             console.log(keyValueArray[1][1])
         })
         .catch(error => {
@@ -38,16 +47,37 @@ const Edit = (props) => {
     }
 
     function saveChanges() {
-        // Construct JSON body including the id and input values
-        const formData = Object.fromEntries(keyValueArray);
+        const formattedData = keyValueArray.reduce((acc, [key, value], index) => {
+            let formattedValue = value;
+            if (index > 0) {
+                switch (props.inputsType[index-1]) {
+                case 'Number':
+                    formattedValue = parseFloat(value); // Parsing to float assuming numbers
+                    break;
+                case 'Boolean':
+                    formattedValue = value === 'true'; // Convert string 'true' to boolean true
+                    break;
+                case 'ArrayS':
+                    formattedValue = Array(value.toString().split("|")); // Ensure proper formatting
 
-        // Add the id to the formData object
-        formData.id = id;
-    
-        // Construct JSON body including the id and input values
-        const requestBody = JSON.stringify(formData);
-        console.log("ASDASD", keyValueArray);
-        console.log("REQ: ", requestBody)
+                    break;
+                case 'ArrayN':
+                    formattedValue = Array(value)
+                    for (var index in formattedValue) {
+                    formattedValue[index] = parseFloat(formattedValue[index]);
+                    }
+                    //formattedValue = Array(parseFloat(value)); // Ensure proper formatting
+                    break;
+                default:
+                    formattedValue = value;
+                }
+            }
+            acc[key] = formattedValue;
+            return acc;
+          }, {});
+            console.log("FORMATTED DATA: ",formattedData);
+            // Construct JSON body including the id and input values
+            const requestBody = JSON.stringify(formattedData);
         // Send the request to the API endpoint
         fetch(`${props.editUrl}`, {
             method: 'PATCH',

@@ -13,7 +13,7 @@ export const abilitiesApiSlice = ApiSlice.injectEndpoints({
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
-            keepUnusedDataFor: 5,
+            /*keepUnusedDataFor: 5,*/
             transformResponse: responseData => {
                 const loadedAbilities = responseData.map(ability => {
                     ability.id = ability._id
@@ -29,12 +29,52 @@ export const abilitiesApiSlice = ApiSlice.injectEndpoints({
                     ]
                 } else return [{ type: 'Ability', id: 'LIST'}]
             }
-        })
+        }),
+        addNewAbility: builder.mutation({
+            query: initialAbilityData => ({
+                url: '/abilities',
+                method: 'POST',
+                body: {
+                    ...initialAbilityData,
+    
+                }
+            }),
+            invalidatesTags: [
+                {type: "Ability", id: "LIST"}
+            ]
+        }),
+        updateAbility: builder.mutation({
+            query: initialAbilityData => ({
+                url: "/abilities",
+                method: 'PATCH',
+                body: {
+                    ...initialAbilityData,
+                }
+    
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Ability', id: arg.id }
+            ]
+        }),
+        deleteAbility: builder.mutation({
+            query: ({id}) => ({
+                url: '/abilities',
+                method: "DELETE",
+                body: {id}
+            }),
+            invalidatesTags: (result, error, arg) => [
+                {type: 'Ability', id: arg.id }
+            ]
+        }),
+        
     })
 })
 
 export const {
     useGetAbilitiesQuery,
+    useAddNewAbilityMutation,
+    useUpdateAbilityMutation,
+    useDeleteAbilityMutation,
 } = abilitiesApiSlice
 
 // returns the query result object
@@ -52,4 +92,4 @@ export const {
     selectById: selectAbilityById,
     selectIds: selectAbilityIds
     // pass in a selector that returns the abilities slice of state
-} = abilitiesAdapter.getSelectors(state => selectAbilitiesData(state ?? initialState))
+} = abilitiesAdapter.getSelectors(state => selectAbilitiesData(state) ?? initialState)

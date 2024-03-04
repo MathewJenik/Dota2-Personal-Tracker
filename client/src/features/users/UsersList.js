@@ -10,7 +10,11 @@ function UsersList() {
         isSuccess,
         isError,
         error
-    } = useGetUsersQuery()
+    } = useGetUsersQuery(null, {
+        pollingInterval: 60000, // 60 seconds, requery data after specified time.
+        refetchOnFocus: true, // collect data again if window has been changed (focus has switched)
+        refetchOnMountOrArgChange: true // collect data if mount
+    })
 
 
     let content;

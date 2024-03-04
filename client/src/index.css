@@ -65,7 +65,7 @@ code {
 
 /* Containers:*/
 
-.item-container, .hero-container {
+.item-container, .hero-container, .ability-container {
   min-width: 15em;
   max-width: 20em;
   padding: 1em;
@@ -76,7 +76,7 @@ code {
   flex-direction: column;
 }
 
-.item-heading, .hero-heading {
+.item-heading, .hero-heading, .ability-heading {
   background-color: var(--blue);
   font-weight: bold;
   display: flex;
@@ -95,6 +95,18 @@ code {
 
 .item-container .gold {
   background-color: gold;
+  color: var(--dark-charcoal);
+  border-radius: 10px;
+}
+
+.ability-container .manaCost {
+  color: blue !important;
+  color: var(--dark-charcoal);
+  border-radius: 10px;
+}
+
+.ability-container .healthCost {
+  color: red !important;
   color: var(--dark-charcoal);
   border-radius: 10px;
 }
@@ -132,8 +144,17 @@ code {
 
 
 
-
 /* */
 .item-container svg {
   fill: white;
+}
+
+
+
+/* */
+
+.hero-container > .hero-abilities > .hero-ability-image {
+  width:3em;
+  display: inline;
+  cursor: pointer;
 }

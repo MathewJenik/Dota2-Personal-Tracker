@@ -9,4 +9,6 @@ router.route('/')
     .patch(abilityController.updateAbility)
     .delete(abilityController.deleteAbility)
 
+router.route('/:id').get(abilityController.getSingularAbility)
+
 module.exports = router

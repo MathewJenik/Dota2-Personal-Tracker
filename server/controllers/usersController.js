@@ -21,7 +21,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @access Private
 const createUser = asyncHandler(async (req, res) => {
     const {username, password, DotaID, roles} = req.body
-
+    console.log(username, password, DotaID, roles)
     // confirm data
     if (!username || !password || !Array.isArray(roles) || !DotaID || !roles.length) {
         return res.status(400).json({message: "All Fields Are Required"})
