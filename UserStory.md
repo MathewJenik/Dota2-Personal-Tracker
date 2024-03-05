@@ -15,6 +15,8 @@
 15. [] User Editing
 16. [] User Creation
 17. [] Role based Access + Auth
+18. [] Admin dashboard
+19. [] player dashboard
 
 
 Database:

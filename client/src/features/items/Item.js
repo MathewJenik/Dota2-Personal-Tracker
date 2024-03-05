@@ -8,7 +8,10 @@ import { selectItemById } from './ItemsApiSlice'
 import React from 'react'
 
 const Item = ({itemId, adminMode}) => {
-  const item = useSelector(state => selectItemById(state, itemId))
+  const item = useSelector(state =>
+      selectItemById(state, itemId)
+   )
+  console.log(item)
 
   const navigate = useNavigate()
 

@@ -1,5 +1,6 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { ApiSlice } from "../../app/api/ApiSlice";
+import { useSelector } from "react-redux";
 
 const usersAdapter = createEntityAdapter({})
 
@@ -40,7 +41,7 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 }
             }),
             invalidatesTags: [
-                {type: "Item", id: "LIST"}
+                {type: "User", id: "LIST"}
             ]
         }),
         updateUser: builder.mutation({
@@ -66,6 +67,12 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 {type: 'User', id: arg.id }
             ]
         }),
+        getUserByID: builder.query({
+            query: (id) => `/users/${id}`,
+            invalidatesTags: [
+                {type: "Item", id: "LIST"}
+            ]
+        }),
     })
 })
 
@@ -74,6 +81,7 @@ export const {
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,
+    useGetUserByIDQuery
 } = UsersApiSlice
 
 // returns the query result object

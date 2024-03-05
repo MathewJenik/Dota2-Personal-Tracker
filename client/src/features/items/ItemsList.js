@@ -31,7 +31,10 @@ function ItemList({adminMode}) {
 
         content = (
             <ul>
-                <CreateNewComponent urlTo={'/admin/item/create/'}/>
+                {(adminMode && (
+                    
+                    <CreateNewComponent urlTo={'/admin/item/create/'}/>
+                ))}
                 {tableContent}
             </ul>   
         )

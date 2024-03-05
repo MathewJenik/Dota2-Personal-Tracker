@@ -4,6 +4,13 @@
 
 /* Pre-Generated CSS*/
 
+
+body {
+  max-width: 80em;
+  margin: auto;
+  
+}
+
 .App {
   text-align: center;
 }

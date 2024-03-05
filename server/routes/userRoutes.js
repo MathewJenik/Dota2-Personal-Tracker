@@ -9,4 +9,8 @@ router.route('/')
     .patch(userController.updateUser)
     .delete(userController.deleteUser)
 
+
+// Define route for both without verifyJWT middleware
+router.route('/:id').get(userController.getSingularUser)
+
 module.exports = router

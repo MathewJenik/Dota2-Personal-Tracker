@@ -2,7 +2,7 @@ import react, { useEffect } from 'react'
 import { UsersApiSlice } from "../users/UsersApiSlice";
 import { abilitiesApiSlice } from "../abilities/AbilitiesApiSlice";
 import { heroesApiSlice } from "../heroes/HeroesApiSlice";
-import { ItemsApiSlice } from "../items/ItemsApiSlice";
+import { itemsApiSlice } from "../items/ItemsApiSlice";
 import { store } from "../../app/Store";
 import { Outlet } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const Prefetch = () => {
         const users = store.dispatch(UsersApiSlice.endpoints.getUsers.initiate())
         const abilities = store.dispatch(abilitiesApiSlice.endpoints.getAbilities.initiate())
         const heroes = store.dispatch(heroesApiSlice.endpoints.getHeroes.initiate())
-        const items = store.dispatch(ItemsApiSlice.endpoints.getItems.initiate())
+        const items = store.dispatch(itemsApiSlice.endpoints.getItems.initiate())
 
         return () => {
             // unsubscribing

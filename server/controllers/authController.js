@@ -14,6 +14,7 @@ const login = asyncHandler(async (req, res) => {
     }
 
     const foundUser = await User.findOne({username}).exec()
+    
 
     console.log("FOUND USER: ", foundUser)
 
@@ -31,7 +32,8 @@ const login = asyncHandler(async (req, res) => {
         {
             "UserInfo": {
                 "username": foundUser.username,
-                "roles": foundUser.roles
+                "roles": foundUser.roles,
+                "userID": foundUser._id
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -56,6 +58,8 @@ const login = asyncHandler(async (req, res) => {
     // Send accessToken containing username and roles
     res.json({accessToken})
     res.send('Login successful');
+    console.log("ACCESS TOKEN: ", accessToken)
+    console.log("FOUND USER: ", foundUser)
 
 })
 

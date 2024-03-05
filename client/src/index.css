@@ -13,12 +13,16 @@
 
 html {
   background-color: var(--dark-charcoal);
-  width: 100vw;
+  /*width: 100vw;*/
   min-height: 100vh;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p, h1, h2, h3, h4, h5, h6, label {
   color: var(--white);
+}
+
+label {
+  padding: 1em;
 }
 
 button, a {
@@ -42,7 +46,7 @@ code {
 
 
 .page {
-  min-height: 100vh;
+  min-height: 90vh;
 
 }
 
@@ -144,6 +148,7 @@ code {
 
 
 
+
 /* */
 .item-container svg {
   fill: white;
@@ -158,3 +163,19 @@ code {
   display: inline;
   cursor: pointer;
 }
+
+
+/* Admin page */
+
+.admin-options {
+  margin: auto;
+  display: table;
+}
+
+
+/* Profile page */
+.primary-heading {
+  text-align: center;
+  font-size: xxx-large;
+}
+

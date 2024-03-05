@@ -23,6 +23,9 @@ import {ROLES} from './config/roles';
 import RequireAuth from './features/auth/RequireAuth';
 
 import { getTokenFromLocalStorage} from './features/api/storage';
+import Admin from './pages/Admin/Admin';
+import Profile from './pages/Profile/Profile';
+import ProfilePage from './pages/Profile/ProfilePage';
 
 function App() {
 
@@ -39,6 +42,7 @@ const initializeApp = () => {
 };
 
 initializeApp();
+
 
   return (
     <Routes>
@@ -60,10 +64,17 @@ initializeApp();
             
             <Route path="items" element={<ItemList adminMode={false}/>} />
 
+            <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+              <Route path='profile'>
+                  <Route index element={<ProfilePage />}></Route>
+              </Route>
+            </Route>
+
               
               {/* Login Required with priveleges */}
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
               <Route path='admin'>
+                <Route index element={<Admin/>}></Route>
                 <Route path='items' element={<ItemList adminMode={true}/>} />
                 <Route path='users' element={<UsersList/>} />
                 <Route path='heroes' element={<HeroList adminMode={true}/>} />

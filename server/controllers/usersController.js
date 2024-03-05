@@ -16,6 +16,20 @@ const getAllUsers = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc Get a singular User
+// @route Get /hero/:{id}
+// @access Private
+const getSingularUser  = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findOne({_id: id}).lean().exec();
+
+    if (!user) {
+        return res.status(404).json({message: "User not found"})
+    }
+    res.json(user);
+    
+})
+
 // @desc Create a user
 // @route Post /users
 // @access Private
@@ -125,5 +139,6 @@ module.exports = {
     getAllUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getSingularUser
 }
