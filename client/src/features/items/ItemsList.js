@@ -11,7 +11,7 @@ function ItemList({adminMode}) {
         isSuccess,
         isError,
         error
-    } = useGetItemsQuery(null, {
+    } = useGetItemsQuery("itemsList", {
         pollingInterval: 60000, // 60 seconds, requery data after specified time.
         refetchOnFocus: true, // collect data again if window has been changed (focus has switched)
         refetchOnMountOrArgChange: true // collect data if mount
@@ -30,6 +30,9 @@ function ItemList({adminMode}) {
         : null
 
         content = (
+            <>
+            <h1 className='primary-heading'>Items</h1>
+            
             <ul>
                 {(adminMode && (
                     
@@ -37,6 +40,7 @@ function ItemList({adminMode}) {
                 ))}
                 {tableContent}
             </ul>   
+            </>
         )
     }
 

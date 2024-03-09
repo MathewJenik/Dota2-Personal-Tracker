@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "User"
     }],
+    premium: {
+        type: Boolean,
+        default: false
+    },
+    last_sync_time: {
+        type: Number,
+        default: 0
+    },
     active: {
         type: Boolean,
         default: true

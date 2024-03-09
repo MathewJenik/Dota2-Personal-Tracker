@@ -26,6 +26,7 @@ import { getTokenFromLocalStorage} from './features/api/storage';
 import Admin from './pages/Admin/Admin';
 import Profile from './pages/Profile/Profile';
 import ProfilePage from './pages/Profile/ProfilePage';
+import Register from './features/auth/Register';
 
 function App() {
 
@@ -52,6 +53,7 @@ initializeApp();
 
 
         <Route path="login" element={<Login />}/>
+        <Route path="register" element={<Register/>} />
         <Route element={<PersistLogin />}>
           <Route element={<Prefetch />}>
 

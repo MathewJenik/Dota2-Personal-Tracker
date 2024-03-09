@@ -47,22 +47,11 @@ const DashboardHeader = () => {
   }
 
 
-  const logoutButton = (
-    <button
-        title="Logout"
-        onClick={() => onLogoutClick()}
-    >Logout
-    </button>
-)
 
   const content = (
     <div className='dashboard-heading'>
         <p>asdasdasd</p>
         <div>
-          <h3>Buttons:</h3>
-          {logoutButton}
-          <h3>Username: {username}</h3>
-          <h3>Current Role: {status}</h3>
         </div>
     </div>
   );

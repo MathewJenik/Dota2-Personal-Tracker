@@ -6,6 +6,7 @@
     background-color: var(--light-charcoal);
     display: inline-flex;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .content-container > div {

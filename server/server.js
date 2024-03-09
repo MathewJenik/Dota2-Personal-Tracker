@@ -12,6 +12,9 @@ const mongoose = require('mongoose')
 const { logEvents } = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
 
+const passport = require('passport')
+const SteamStrategy = require('passport-steam')
+
 // environment variable colelction
 console.log(process.env.NODE_ENV)
 
@@ -28,6 +31,18 @@ app.use(express.json())
 
 app.use(cookieParser())
 
+/*
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+// steam auth strategy
+passport.use( new SteamStrategy({
+    returnURL: "http://localhost:3000/auth/steam/callback",
+    realm: 'http://localhost:3000/',
+    apiKey: 
+}))
+*/
 
 // used to point express to static files (css files)
 app.use('/', express.static(path.join(__dirname, '/public')))
@@ -49,7 +64,8 @@ app.use('/items', require('./routes/itemRoutes.js'))
 // route for the Ability
 app.use('/abilities', require('./routes/abilityRoutes.js'))
 
-
+// ro0ute for the dota api
+app.use('/dota', require('./routes/dotaAPIRoutes.js'))
 
 // 404 page setup
 app.all('*', (req, res) => {

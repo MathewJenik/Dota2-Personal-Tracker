@@ -33,7 +33,8 @@ const login = asyncHandler(async (req, res) => {
             "UserInfo": {
                 "username": foundUser.username,
                 "roles": foundUser.roles,
-                "userID": foundUser._id
+                "userID": foundUser._id,
+                "dotaID": foundUser.DotaID
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -94,9 +95,11 @@ const refresh = (req, res) => {
 
             const accessToken = jwt.sign(
                 {
-                    "UserInfo" : {
+                    "UserInfo": {
                         "username": foundUser.username,
-                        "roles": foundUser.roles
+                        "roles": foundUser.roles,
+                        "userID": foundUser._id,
+                        "dotaID": foundUser.DotaID
                     }
                 },
                 process.env.ACCESS_TOKEN_SECRET,
@@ -127,6 +130,7 @@ const logout = (req, res) => {
     res.json({message: 'Cookie cleared'})
 
 }
+
 
 
 module.exports = {

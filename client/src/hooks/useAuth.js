@@ -10,7 +10,8 @@ const useAuth = () => {
     let token = useSelector(selectCurrentToken)
     let isModerator = false
     let isAdmin = false
-    let status = "User" 
+    let status = "User"
+    let dotaID = ''
 
     if (!token) {
         token = getTokenFromLocalStorage();
@@ -23,7 +24,7 @@ const useAuth = () => {
 
     if (token) {
         const decoded = jwtDecode(token)
-        const {userID, username, roles} = decoded.UserInfo
+        const {userID, username, roles, dotaID} = decoded.UserInfo
 
         isModerator = roles.includes('Moderator')
         isAdmin = roles.includes('Admin')
@@ -35,7 +36,9 @@ const useAuth = () => {
             status = "Admin"
         }
 
-        return {userID, username, roles, status, isModerator, isAdmin}
+        
+
+        return {userID, username, roles, status, isModerator, isAdmin, dotaID}
     }
 
 

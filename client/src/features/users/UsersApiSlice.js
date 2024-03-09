@@ -99,4 +99,4 @@ export const {
     selectById: selectUserById,
     selectIds: selectUserIds
     // pass in a selector that returns the users slice of state
-} = usersAdapter.getSelectors(state => selectUsersData(state ?? initialState))
+} = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState)

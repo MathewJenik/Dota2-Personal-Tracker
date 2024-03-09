@@ -94,4 +94,4 @@ export const {
     selectById: selectItemById,
     selectIds: selectItemIds
     // pass in a selector that returns the items slice of state
-} = itemsAdapter.getSelectors(state => selectItemsData(state ?? initialState))
+} = itemsAdapter.getSelectors(state => selectItemsData(state) ?? initialState)

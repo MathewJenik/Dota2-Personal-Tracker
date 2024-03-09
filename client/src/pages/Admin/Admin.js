@@ -7,7 +7,8 @@ const Admin = () => {
   return (
     <div>
             
-        <h1>Admin</h1>
+        <h1 className='primary-heading'>Admin</h1>
+        
         <ul className='admin-options'>
           <ContentContainer urlTo={'/admin/heroes'} heading={'Heroes'}/>
           <ContentContainer urlTo={'/admin/Items'} heading={'Items'}/>

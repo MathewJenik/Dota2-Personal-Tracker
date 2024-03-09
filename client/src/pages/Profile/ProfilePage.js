@@ -28,7 +28,9 @@ const ProfilePage = () => {
         // get the user id
         
         content = (
-            <Profile userID={userID}/>
+            <>
+                <Profile userID={userID}/>
+            </>
         )
 
     }

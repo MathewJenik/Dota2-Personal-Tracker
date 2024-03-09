@@ -23,6 +23,8 @@
     "jwt-decode": "^4.0.0",
     "mongoose": "^8.1.0",
     "mongoose-sequence": "^6.0.0",
+    "passport": "^0.7.0",
+    "passport-steam": "^1.0.18",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

@@ -25,6 +25,37 @@ label {
   padding: 1em;
 }
 
+form {
+  background-color: #34495E;
+  margin: 1em;
+  padding: 2em;
+  padding-left: 4em;
+  padding-right: 4em;
+  width: min-content;
+  margin: auto;
+}
+
+.form-submit {
+  cursor: pointer;
+  background-color: var(--blue) !important;
+  color: #ffffff;
+  padding: 1em;
+}
+
+form > label, form > input, form > button {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+}
+
+form > button {
+
+}
+
+.form-centre {
+  margin-top: 5em;
+}
+
 button, a {
   color: var(--white) !important;
 }
@@ -177,5 +208,6 @@ code {
 .primary-heading {
   text-align: center;
   font-size: xxx-large;
+  margin-top: 1em;
 }
 

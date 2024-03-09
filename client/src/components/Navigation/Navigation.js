@@ -41,8 +41,10 @@ const Navigation = () => {
         
         {/* check to see if logged in, if not show login*/}
         {!username && (
-          <Link to={'login'}>Login</Link>
-
+          <>
+            <Link to={'login'}>Login</Link>
+            <Link to={'register'}>Sign Up</Link>
+          </>
           )
         }
 
@@ -58,7 +60,7 @@ const Navigation = () => {
             <div onMouseLeave={dashExpandToggle} onMouseEnter={dashExpandOn} className='secondary-nav'>
                 <Link to={'dashboard/hero'}>Hero</Link>
             </div>
-          )}
+        )}
 
 
     </div>

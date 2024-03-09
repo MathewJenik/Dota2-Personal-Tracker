@@ -9,9 +9,9 @@ const ContentContainer = ({urlTo, heading}) => {
     const handleEdit = () => navigate(`${urlTo}`);
 
   return (
-    <li className='content-container'>
-        <div> 
-            <button onClick={handleEdit}>
+    <li onClick={handleEdit} className='content-container'>
+        <div > 
+            <button>
                 <h1>{heading}</h1>
             </button>
 
