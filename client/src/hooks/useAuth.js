@@ -18,10 +18,6 @@ const useAuth = () => {
     }
 
 
-    console.log("TOKEN FROM STRG: ", token)
-
-    console.log(token)
-
     if (token) {
         const decoded = jwtDecode(token)
         const {userID, username, roles, dotaID} = decoded.UserInfo

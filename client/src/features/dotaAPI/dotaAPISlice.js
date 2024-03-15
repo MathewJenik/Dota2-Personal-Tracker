@@ -21,12 +21,20 @@ export const dotaAPISlice = ApiSlice.injectEndpoints({
                 body: { ...id }
             })
         }),
+        syncRecentMatches: builder.mutation({
+            query: data => ({
+                url: '/dota/matches/sync/recent',
+                method: 'POST',
+                body: {...data }
+            })
+        }),
     })
 })
 
 export const {
     useGetDotaDataSyncMutation,
-    useGetRecentMatchesQuery
+    useGetRecentMatchesQuery,
+    useSyncRecentMatchesMutation
 } = dotaAPISlice
 
 // returns the query result object

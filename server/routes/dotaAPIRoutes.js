@@ -14,7 +14,7 @@ router.route('/player/sync')
 //    .get(dotaAPIController.getDotaPlayerMatchesSync)
 
 router.route('/matches/sync/recent')
-    .get(dotaAPIController.getDotaPlayerRecentMatchesSync)
+    .post(dotaAPIController.getDotaPlayerRecentMatchesSync)
 
 router.route('/match/:id')
     .get(dotaAPIController.getDotaMatchByID)

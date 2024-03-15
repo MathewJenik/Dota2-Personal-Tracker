@@ -39,7 +39,7 @@ const getDotaAPICall = asyncHandler(async (req, res) => {
 
 
 // @desc Get Dota Matches (last 20) stored in DB
-// @route Post /dota/recent
+// @route Post /dota/matches/recent
 // access Private
 const getRecentPlayerMatches = asyncHandler(async (req, res) => {
 
@@ -51,8 +51,8 @@ const getRecentPlayerMatches = asyncHandler(async (req, res) => {
 
     try {
         // Find the latest 20 matches for the given Dota ID
-        const recentMatches = await PlayerMatch.find({ Dota_ID: dota_id }).sort({ start_time: -1 }).limit(20);
-        
+        const recentMatches = await PlayerMatch.find({ Dota_ID: dota_id }).sort({ Time_Played: -1 }).limit(20);
+        console.log("RECENT MATCHES ARE: ", recentMatches)
         // Extract Match_IDs from recentPlayerMatches
         const matchIds = recentMatches.map(match => match.Match_ID);
         //console.log("MATCH IDS: ", matchIds)
@@ -93,9 +93,12 @@ const getDotaPlayerSync = asyncHandler(async (req, res) => {
     
 })
 
-
+// @desc Get dota match information. based off ID. Syncs with dota 2 API.
+// @route POST /dota
+// access private
 const getDotaPlayerRecentMatchesSync = asyncHandler(async (req, res) => {
 
+    console.log("GET RECENT MATCHES workign")
     const {data} = req.body;
 
     req.body.path = "players";

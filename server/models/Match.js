@@ -37,6 +37,10 @@ const matchSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    lobby_type: {
+        type: Number,
+        require: true
+    },
     patch: {
         type: Number,
         require: true

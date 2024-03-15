@@ -42,6 +42,7 @@ const createMatch = asyncHandler(async (req, res) => {
         duration,
         first_blood_time,
         game_mode,
+        lobby_type,
         patch,
         region,
         players,
@@ -54,7 +55,8 @@ const createMatch = asyncHandler(async (req, res) => {
 
     // Check if all required fields are present
     if (!match_id || !Number.isInteger(barracks_status_dire) || !Number.isInteger(barracks_status_radiant) || !Number.isInteger(dire_score) || !Number.isInteger(radiant_score)
-         || !Number.isInteger(duration) || !Number.isInteger(first_blood_time) || !Number.isInteger(game_mode) || !Number.isInteger(patch) || !Number.isInteger(region) || !Array.isArray(players) || !Array.isArray(picks_bans)
+         || !Number.isInteger(duration) || !Number.isInteger(first_blood_time) || !Number.isInteger(game_mode) || !Number.isInteger(patch) || !Number.isInteger(region) ||
+         !Array.isArray(players) || !Array.isArray(picks_bans) || !Number.isInteger(lobby_type)
         || !start_time) {
         //return res.status(400).json({ message: "Create - All Fields Are Required" });
         console.log(match_id,
@@ -65,6 +67,7 @@ const createMatch = asyncHandler(async (req, res) => {
             duration,
             first_blood_time,
             game_mode,
+            lobby_type,
             patch,
             region, Array.isArray(players), Array.isArray(picks_bans))
         return { message: "Create - All Fields Are Required" };
@@ -90,6 +93,7 @@ const createMatch = asyncHandler(async (req, res) => {
         duration,
         first_blood_time,
         game_mode,
+        lobby_type,
         patch,
         region,
         players,

@@ -8,7 +8,8 @@
   --light-charcoal: #34495E;
   --white: #ffffff;
   --blue: #3498DB;
-
+  --radiantgreen: #2ECC71;
+  --direred: #FF5252;
 }
 
 html {
@@ -211,3 +212,40 @@ code {
   margin-top: 1em;
 }
 
+
+
+/* Matches */
+.match-sliver {
+  width: 80em;
+  display: inline-flex;
+  
+  border: 1px solid var(--blue);
+  background-color: var(--light-charcoal);
+}
+
+.match-sliver > .primary-details {
+  display: inline-flex;
+  width: 10em;
+}
+
+
+.match-sliver > table {
+  width: 20em;
+}
+
+.match-sliver > table h2 {
+  text-align: center ;
+  width: 10em;
+}
+
+.match-sliver > .primary-details > img {
+  width: 5em;
+}
+
+.match-sliver .match-win {
+  color: var(--radiantgreen);
+}
+
+.match-sliver .match-loss {
+  color: var(--direred);
+}

@@ -57,6 +57,15 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 { type: 'User', id: arg.id }
             ]
         }),
+        setUserDotaID: builder.mutation({
+            query: data => ({
+                url: "/users/dotaid",
+                method: 'PATCH',
+                body: {
+                    ...data,
+                }
+            })
+        }),
         deleteUser: builder.mutation({
             query: ({id}) => ({
                 url: '/users',
@@ -81,7 +90,8 @@ export const {
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,
-    useGetUserByIDQuery
+    useGetUserByIDQuery,
+    useSetUserDotaIDMutation
 } = UsersApiSlice
 
 // returns the query result object

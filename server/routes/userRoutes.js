@@ -13,4 +13,6 @@ router.route('/')
 // Define route for both without verifyJWT middleware
 router.route('/:id').get(userController.getSingularUser)
 
+router.route('/dotaid').patch(userController.setDotaID)
+
 module.exports = router

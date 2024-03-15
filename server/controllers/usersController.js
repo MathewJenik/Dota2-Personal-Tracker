@@ -135,10 +135,48 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 })
 
+
+
+
+// @desc set DotaID of user
+// @route Patch /users/dotaid
+// @access Private
+const setDotaID = asyncHandler(async (req, res) => {
+    // getting data
+    const {id, DotaID} = req.body;
+
+    // confirm data
+    if (!id || !DotaID ) {
+        return res.status(400).json({message: "All fields are required"});
+    }
+
+    const user = await User.findById(id).exec();
+
+    if (!user) {
+        return res.status(400).json({message: "User not found"});
+    }
+
+    // check for a duplicate user
+
+    const dup = await User.findOne({id}).lean().exec();
+    
+    // allow updates to original, checking for same id
+    if (dup && dup?._id.toString() !== id) {
+        return res.status(409).json({message: "Duplicate Username."});
+    }
+
+    user.DotaID = DotaID;
+
+    const updatedUser = await user.save();
+    res.json({message: `Updated dotaID for ${updatedUser.username}`})
+
+})
+
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
     deleteUser,
-    getSingularUser
+    getSingularUser,
+    setDotaID
 }

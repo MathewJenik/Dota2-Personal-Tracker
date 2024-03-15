@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useSendLogoutMutation } from '../../features/auth/authApiSlice'
+import { useRefreshMutation, useSendLogoutMutation } from '../../features/auth/authApiSlice'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { removeTokenFromLocalStorage } from '../../features/api/storage'
-import { selectUserById, useGetUsersQuery } from '../../features/users/UsersApiSlice'
+import { selectUserById, useGetUsersQuery, useSetUserDotaIDMutation } from '../../features/users/UsersApiSlice'
 import { useSelector } from 'react-redux'
 import useAuth from '../../hooks/useAuth'
-import { useGetDotaDataSyncMutation } from '../../features/dotaAPI/dotaAPISlice'
+import { useGetDotaDataSyncMutation, useGetRecentMatchesQuery, useSyncRecentMatchesMutation } from '../../features/dotaAPI/dotaAPISlice'
 
-const Profile = ({userID}) => {
+const Profile = () => {
 
     const [profileData, setProfileData] = useState(null);
     const [profileName, setProfileName] = useState('')
-
     
-    const {username, status, dotaID} = useAuth()
+    const {userID, username, status, dotaID} = useAuth()
+    
+    const [dID, setDID] = useState(dotaID)
     
     const [sendLogout, {
         isLoginLoading,
@@ -38,6 +39,22 @@ const Profile = ({userID}) => {
         error: errorDSync
     }] = useGetDotaDataSyncMutation();
 
+    
+    
+    const [syncRecentMatches, {
+        data: recentMatches,
+        isLoading: idRecentLoading,
+        isSuccess: isRecentSuccess,
+        isError: isRecentError,
+        error: recentError,
+    }] = useSyncRecentMatchesMutation();
+    
+
+    const [refreshJWT] = useRefreshMutation();
+    
+
+    const [updateDotaID] = useSetUserDotaIDMutation();
+
     useEffect(() => {
         console.log("PROFILE SYNC SUCCESS: ", isDSyncSuccess);
         console.log("PROFILE SYNC DATA: ", profile);
@@ -53,15 +70,26 @@ const Profile = ({userID}) => {
         selectUserById(state, userID)
     )
 
-    
+    var id = "102296415"
     const onSaveClicked = async (e) => {
         e.preventDefault();
         // check if the data can be saved
         
         // now save the updated dota id
+        updateDotaID({"id": userID, "DotaID": dID})
+
+        // now resync the JWT:
+        refreshJWT()
+        console.log("SHOULD HAVE REFRESHED THE JWT")
+
     }
 
-    var id = "102296415"
+    const handleDotaIDInputChange = (e) => {
+        setDID(e.target.value)
+    }
+
+
+    
     if (user) {
         return (
             <div className='profile page'>
@@ -70,7 +98,7 @@ const Profile = ({userID}) => {
                 <div>
                     <form>
                         <label htmlFor='DotaID'>Dota 2 ID</label>
-                        <input name='DotaID' value={dotaID}></input>
+                        <input name='DotaID' value={dID} onChange={handleDotaIDInputChange}></input>
                         <input className='form-submit' type="submit" value="Submit" onClick={onSaveClicked} />
                     </form>
         
@@ -78,6 +106,12 @@ const Profile = ({userID}) => {
                     <br></br>
                     <button onClick={() => syncData({data: id})}>Sync</button>
 
+
+                    <br></br>
+                    <p>Get Recent Matches</p>
+                    <button onClick={() => {
+                        console.log("TEST SYNC BUTTON");
+                        syncRecentMatches({data: dID})}}>Load Recent Matches</button>
 
                 </div>
         
