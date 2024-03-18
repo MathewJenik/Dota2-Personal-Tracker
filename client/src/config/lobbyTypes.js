@@ -1,7 +1,7 @@
 export const LOBBYTYPES = {
     0: "Normal",
-    1: "Practice",
-    2: "Tournament",
+    2: "Practice",
+    1: "Tournament",
     5: "Party Ranked",
     6: "Solo Ranked",
     7: "Ranked",

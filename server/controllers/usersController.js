@@ -2,6 +2,7 @@ const User = require('../models/User')
 
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const PlayerMatch = require('../models/PlayerMatch')
 
 // @desc Get all users
 // @route Get /users
@@ -172,11 +173,121 @@ const setDotaID = asyncHandler(async (req, res) => {
 
 })
 
+
+
+// @desc get the statistics linked to a dota account.
+// @route Patch /users/statistics/:{id}
+// @access Private
+const getPlayerStatistics = asyncHandler(async (req, res) => {
+    // getting data
+    const { id } = req.params;
+    const DotaID = id; // Assuming your route parameter is named "id"
+
+    console.log("PDOTA: ", DotaID)
+
+    // confirm data
+    if (!DotaID ) {
+        return res.status(400).json({message: "All fields are required"});
+    }
+
+
+    let totalGames = 0;
+    let totalWins = 0;
+    let totalLosses = 0;
+    
+    let recentAverageRank = 0;
+    let recentWins = 0;
+    let recentLosses = 0;
+
+    let playerRank = 0;
+
+
+    try {
+        // Find all the player matches that match the dota ID
+        const playerMatches = await PlayerMatch.find({Dota_ID: DotaID});
+        
+        // Find the latest 20 matches for the given Dota ID
+        const recentMatches = await PlayerMatch.find({ Dota_ID: DotaID }).sort({ Time_Played: -1 }).limit(20);
+        
+        // Calculate win rate
+        totalGames = playerMatches.length;
+
+        // calculate average rank over 20 games
+
+        for (let i = 0; i < playerMatches.length; i++) {
+            //console.log("Player Match Details: ", playerMatches[i])
+            if (playerMatches[i].Loss == true) {
+                totalLosses += 1;
+            } 
+            if (playerMatches[i].Win == true) {
+                totalWins += 1;
+            }
+
+        }
+
+
+        // get the average rank for those 20 matches
+        for (let i = 0; i < recentMatches.length; i++) {
+            //console.log("RECENT DATA: ", recentMatches[i])
+
+            if (recentMatches[i].Loss == true) {
+                recentWins += 1;
+            } 
+            if (recentMatches[i].Win == true) {
+                recentLosses += 1;
+            }
+
+            const bracket = Math.floor(recentMatches[i].Average_Rank/10)
+            const star =  recentMatches[i].Average_Rank%10
+            
+            const ave = (bracket*10) + (star * 2)
+            
+            console.log("Bracket : ", bracket , " | Star : ", star, " | Ave : ", ave)
+            // add average rank
+            recentAverageRank += ave
+
+        }
+
+        recentAverageRank = recentAverageRank/20
+
+        // convert the averageRank back into its format of 1-5 for each 10
+        RARBracket = Math.floor(recentAverageRank/10)
+        RARStar = recentAverageRank%10
+        RARStar = RARStar / 2
+        
+        recentAverageRank = (RARBracket * 10) + (RARStar)
+
+
+        // data to get the most played hero in the last 20 games,
+        // with its win rate and wins/losses + other details
+
+
+    } catch (error) {
+        console.log("Error: ", error)
+        return res.json({ERROR: error, INFO: DotaID})
+    }
+
+    return res.json(
+        {
+            wins: totalWins,
+            losses: totalLosses,
+            total: totalGames,
+            winrate: (totalWins/totalGames),
+            recentWins: recentWins,
+            recentLosses: recentLosses,
+            recentWinRate: (recentWins/20),
+            recentMatchAverageRank: recentAverageRank,
+            playerRank: playerRank
+    })
+
+})
+
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
     deleteUser,
     getSingularUser,
-    setDotaID
+    setDotaID,
+    getPlayerStatistics
 }

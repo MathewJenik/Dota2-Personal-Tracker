@@ -2,19 +2,18 @@ import React from 'react'
 import DashboardHeader from './DashboardHeader';
 import { Outlet } from 'react-router-dom';
 import RecentMatches from '../RecentMatches/RecentMatches';
+import PlayerStatistics from '../PlayerStatistics/PlayerStatistics';
 
 const Dashboard = () => {
-
-  const name = "test name";
 
   return (
     <>
         <DashboardHeader />
         <div className='dashboard-container'>
             <Outlet />
-            <h1>{name}</h1>
-
-            <RecentMatches dota_id={1}/>
+            <h1 className='primary-heading'>Player Dashboard</h1>
+            <PlayerStatistics />
+            <RecentMatches/>
         </div>
     </>
   )

@@ -25,6 +25,15 @@ const playerMatchSchema = new mongoose.Schema({
     Time_Played: {
         type: Number,
         default: true
+    },
+    Average_Rank: {
+        type: Number,
+        required: true
+    },
+    // Using the dota 2 Hero_ID
+    Hero_Played: {
+        type: Number,
+        required: true
     }
 
 })

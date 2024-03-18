@@ -48,9 +48,13 @@ const Hero = ({heroId, adminMode}) => {
 
       const imageLocs = [];
       const imageIDs = [];
+      console.log("SERVER IMAGES FOR HERO ABILITIES: ", JSON.parse(hero.abilities))
+
+      // OLD WAY
       const abilString = JSON.parse(hero.abilities);
-      for (const ability in abilString[0]) {
-        const imgLoc = await LoadAbility(abilString[0][ability]);
+      for (const ability in abilString) {
+        console.log("EACH ABILITY FOUND: ", abilString[ability]._id)
+        const imgLoc = await LoadAbility(abilString[ability]._id);
         imageLocs.push(imgLoc.imageLoc);
         imageIDs.push(imgLoc._id);
       }

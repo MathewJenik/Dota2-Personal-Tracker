@@ -4,9 +4,10 @@ import { setCredentials } from '../../features/auth/authSlice'
 const baseQuery = fetchBaseQuery({
     baseUrl: 'http://localhost:3500',
     credentials: 'include',
-    prepareHeaders: (headers, { getState}) => {
+    prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
-
+        console.log("STATE: ", getState())
+        console.log("CREATING THE STATE TOKEN FOR FETCH BASE QUERY: ", token)
         if (token) {
             headers.set("authorization", `Bearer ${token}`)
         }

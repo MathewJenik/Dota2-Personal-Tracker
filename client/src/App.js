@@ -27,22 +27,26 @@ import Admin from './pages/Admin/Admin';
 import Profile from './pages/Profile/Profile';
 import ProfilePage from './pages/Profile/ProfilePage';
 import Register from './features/auth/Register';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from './features/auth/authSlice';
+import { useEffect } from 'react';
+import EditHeroForm from './features/heroes/EditHeroForm';
 
 function App() {
 
+  const dispatch = useDispatch(); // Get the dispatch function from react-redux
 
+  // When application initializes, check for token in localStorage
+  useEffect(() => {
+    const token = getTokenFromLocalStorage(); // Assume you have a function to get token from localStorage
+    if (token) {
+      // Use token for authentication
+      dispatch(setCredentials({ accessToken: token })); // Dispatch setCredentials action with token
+    } else {
+      // User is not authenticated
+    }
+  }, [dispatch]); // Add dispatch to the dependency array to ensure useEffect runs when dispatch changes
 
-// When application initializes, check for token in localStorage
-const initializeApp = () => {
-  const token = getTokenFromLocalStorage();
-  if (token) {
-    // Use token for authentication
-  } else {
-    // User is not authenticated
-  }
-};
-
-initializeApp();
 
 
   return (
@@ -110,13 +114,19 @@ initializeApp();
                   />
                   */}/>
 
-                  <Route path='edit/:id'
-                    element={<Edit recUrl="http://localhost:3500/heroes" 
+                  {
+                    /*
+                    <Edit recUrl="http://localhost:3500/heroes" 
                     editUrl="http://localhost:3500/heroes" 
                     deleteUrl="http://localhost:3500/heroes"
                     inputs={['name', 'description', 'primaryAttribute', 'imageLoc', 'abilities', 'active']}
                     inputsType={['String', 'String', 'String', 'String', 'ArrayS', 'Boolean']}
-                  />}/>
+                  />
+                    */
+                  }
+
+                  <Route path='edit/:id'
+                    element={<EditHeroForm />}/>
                 </Route>
 
 

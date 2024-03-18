@@ -15,4 +15,6 @@ router.route('/:id').get(userController.getSingularUser)
 
 router.route('/dotaid').patch(userController.setDotaID)
 
+router.route('/statistics/:id').get(userController.getPlayerStatistics)
+
 module.exports = router

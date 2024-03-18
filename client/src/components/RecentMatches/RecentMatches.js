@@ -4,6 +4,7 @@ import { GAMEMODES } from '../../config/gamemodes';
 import { LOBBYTYPES } from '../../config/lobbyTypes';
 import { HERODATA } from '../../config/heroData';
 import useAuth from '../../hooks/useAuth';
+import { findRank } from '../../config/ranks';
 
 const RecentMatches = ({dota_id}) => {
     
@@ -38,15 +39,24 @@ const RecentMatches = ({dota_id}) => {
             
             const playerIndex = match.players.findIndex((player) => player.account_id == dotaID);
             
+            //const averageRank = PlayerMatch.find({Match_ID: match.match_id})
+
             console.log("PLAYER INDEX: ", playerIndex)
             return {
                 matchDetails: match,
-                playerIndex: playerIndex
+                playerIndex: playerIndex,
+                
             };
         });
 
         // sort the matches to have recent matches first:
         playerMatches.sort((a, b) => b.matchDetails.start_time - a.matchDetails.start_time);
+
+        // calculate the average rank medal for recent matches
+        //let aveBracket = Math.floor(statistics.recentMatchAverageRank/10)
+        //let aveStar = customRound(statistics.recentMatchAverageRank % 10, [1,2,3,4,5])
+
+        //let foundRank = findRank(aveBracket);
 
         content = (
             <div className='recent-match-container'>
@@ -83,6 +93,14 @@ const RecentMatches = ({dota_id}) => {
                             </th>
                             <th>
                                 <h2>{LOBBYTYPES[match.matchDetails.lobby_type] || `Unknown (${match.matchDetails.lobby_type})`}</h2>
+                            </th>
+
+                            <th>
+                                <img className='average-rank' 
+                                src={`${findRank(Math.floor(match.matchDetails.averageRank/10)).imageLocation}/SeasonalRank${
+                                    Math.floor(match.matchDetails.averageRank/10)}-${
+                                    (match.matchDetails.averageRank%10)}.webp`}></img>
+                                <h2></h2>
                             </th>
                         </tr>
                     </table>

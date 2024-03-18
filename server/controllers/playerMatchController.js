@@ -33,10 +33,11 @@ const getPlayerMatchesByID = asyncHandler(async (req, res) => {
 const createPlayerMatch = asyncHandler(async (req, res) => {
     console.log("PLAYER MATCH DATA RUNNING");
 
-    const {Dota_ID, Match_ID, Win, Loss, Patch, Time_Played} = req.body;
-    console.log(Dota_ID, Match_ID, Boolean(Win), Boolean(Loss), Patch, Time_Played)
+    const {Dota_ID, Match_ID, Win, Loss, Patch, Time_Played, Average_Rank, Hero_Played} = req.body;
+    console.log(Dota_ID, Match_ID, Boolean(Win), Boolean(Loss), Patch, Time_Played, Average_Rank, Hero_Played)
     // undefined on dota id and patch.
-    if (!Dota_ID || !Number.isInteger(Match_ID) || !typeof Win == "boolean" || !typeof Loss == "boolean" || !Patch || !Time_Played) {
+    if (!Dota_ID || !Number.isInteger(Match_ID) || !typeof Win == "boolean" ||
+     !typeof Loss == "boolean" || !Patch || !Time_Played || !Average_Rank || !Hero_Played) {
         return {message : "Player Match - All Fields are required"}
     }
 
@@ -51,7 +52,7 @@ const createPlayerMatch = asyncHandler(async (req, res) => {
     
     console.log("PLAYER MATCH 3");
     const playerMatchObj = {
-        Dota_ID, Match_ID, Win, Loss, Patch, Time_Played
+        Dota_ID, Match_ID, Win, Loss, Patch, Time_Played, Average_Rank, Hero_Played
     }
 
     const playerMatch = await PlayerMatch.create(playerMatchObj)

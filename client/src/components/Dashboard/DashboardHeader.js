@@ -50,7 +50,6 @@ const DashboardHeader = () => {
 
   const content = (
     <div className='dashboard-heading'>
-        <p>asdasdasd</p>
         <div>
         </div>
     </div>

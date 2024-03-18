@@ -82,6 +82,9 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 {type: "Item", id: "LIST"}
             ]
         }),
+        getPlayerStatistics: builder.query({
+            query: ({id}) => `/users/statistics/${id}`,
+        })
     })
 })
 
@@ -91,7 +94,8 @@ export const {
     useUpdateUserMutation,
     useDeleteUserMutation,
     useGetUserByIDQuery,
-    useSetUserDotaIDMutation
+    useSetUserDotaIDMutation,
+    useGetPlayerStatisticsQuery
 } = UsersApiSlice
 
 // returns the query result object

@@ -60,8 +60,22 @@ const getRecentPlayerMatches = asyncHandler(async (req, res) => {
         // Find matches from Match table using Match_IDs
         const matches = await Match.find({ match_id: { $in: matchIds } });
 
+        const restructuredMatch = matches.map(match => {
+            const matchingRM = recentMatches.find(recentMatch => recentMatch.Match_ID === match.match_id);
+            console.log("MATCHING RM: ", matchingRM)
+            return {
+                ...match.toObject(),
+                averageRank: matchingRM.Average_Rank
+            };
+
+        }
+            
+        )
+
+        //console.log("RESTRUCTURED MATCH: ", restructuredMatch)
+
         //console.log("RECENT :", matches)
-        return res.status(200).json({ matches: matches });
+        return res.status(200).json({ matches: restructuredMatch});
     } catch (err) {
         console.error(err);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -169,12 +183,24 @@ const getDotaPlayerRecentMatchesSync = asyncHandler(async (req, res) => {
             l = true;
         } else if (isRadiant == false && nonExistMatch.radiant_win == true) {
             l = true;
-        } else if (isRadiant == false && nonExistMatch.radiant_win == true) {
+        } else if (isRadiant == false && nonExistMatch.radiant_win == false) {
             w = true;
         }
 
+        // get the Hero id played
+        let hero = nonExistMatch.hero_id;
+        
+        // get the Average Rank
+        let averageRank = nonExistMatch.average_rank;
+
+
         // setup the body
-        req.body = {Dota_ID: data, Match_ID: nonExistMatch.match_id, Win: w, Loss: l, Patch: p, Time_Played: startTime}
+        req.body = {
+            Dota_ID: data, Match_ID: nonExistMatch.match_id, 
+            Win: w, Loss: l, Patch: p, Time_Played: startTime, 
+            Hero_Played: hero, Average_Rank: averageRank
+        }
+
         // create the Player Match table entry
         const result = await createPlayerMatch(req, res);
         

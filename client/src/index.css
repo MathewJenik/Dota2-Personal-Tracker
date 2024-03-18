@@ -210,13 +210,78 @@ code {
   text-align: center;
   font-size: xxx-large;
   margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+
+/* Statistics */
+.player-statistics {
+  background-color: var(--light-charcoal);
+  display: flex;
+  
+  border: 1px solid var(--blue);
+}
+
+.player-statistics section:first-child {
+  border-right: 1px solid var(--dark-charcoal);
+  padding-right: 1em;
+}
+
+.player-statistics section:nth-child(2) {
+  border-right: 1px solid var(--dark-charcoal);
+  padding-right: 1em;
+}
+
+.player-statistics section h1 {
+  margin: auto;
+  width: fit-content;
+  font-size: large;
+  font-weight: bold;
+}
+
+.player-statistics section article {
+  display: flex;
+}
+
+.player-statistics section article > h2 {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.ranks {
+  display: inline-flex;
+  border-left: 2px solid var(--dark-charcoal);
+  
+}
+
+.ranks > section:first-child {
+  padding-left: 4em;
+  padding-right: 4em;
+}
+
+.ranks > section > article {
+  width: 10em;
+  margin: auto;
+}
+
+.average-rank {
+  max-width: 100%;
+  height: auto;
 }
 
 
 
 /* Matches */
+
+.recent-match-container {
+  width: 40em;
+  margin: auto;
+}
+
 .match-sliver {
-  width: 80em;
+  width: 40em;
   display: inline-flex;
   
   border: 1px solid var(--blue);
@@ -240,6 +305,14 @@ code {
 
 .match-sliver > .primary-details > img {
   width: 5em;
+}
+
+.match-sliver th {
+  width: 10em;
+}
+.match-sliver .average-rank {
+  width: 3em;
+  height: 3em;
 }
 
 .match-sliver .match-win {
