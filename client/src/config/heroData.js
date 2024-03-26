@@ -136,8 +136,8 @@ export const HERODATA = {
         "imagePath": "Sniper_icon.webp"
     },
     36: {
-        "name": "necrolyte",
-        "imagePath": "Necrolyte_icon.webp"
+        "name": "necrophos",
+        "imagePath": "Necrophos_icon.webp"
     },
     37: {
         "name": "warlock",
@@ -160,8 +160,8 @@ export const HERODATA = {
         "imagePath": "Faceless_Void_icon.webp"
     },
     42: {
-        "name": "skeleton_king",
-        "imagePath": "Skeleton_King_icon.webp"
+        "name": "wraith_king",
+        "imagePath": "Wraith_King_icon.webp"
     },
     43: {
         "name": "death_prophet",
@@ -380,12 +380,12 @@ export const HERODATA = {
         "imagePath": "Centaur_icon.webp"
     },
     97: {
-        "name": "magnataur",
-        "imagePath": "Magnataur_icon.webp"
+        "name": "magnus",
+        "imagePath": "Magnus_icon.webp"
     },
     98: {
-        "name": "shredder",
-        "imagePath": "Shredder_icon.webp"
+        "name": "snapfire",
+        "imagePath": "Snapfire_icon.webp"
     },
     99: {
         "name": "bristleback",
@@ -422,6 +422,10 @@ export const HERODATA = {
     107: {
         "name": "earth_spirit",
         "imagePath": "Earth_Spirit_icon.webp"
+    },
+    108: {
+        "name": "techies",
+        "imagePath": "Techies_icon.webp"
     },
     109: {
         "name": "terrorblade",

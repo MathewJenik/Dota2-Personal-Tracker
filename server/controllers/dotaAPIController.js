@@ -62,7 +62,7 @@ const getRecentPlayerMatches = asyncHandler(async (req, res) => {
 
         const restructuredMatch = matches.map(match => {
             const matchingRM = recentMatches.find(recentMatch => recentMatch.Match_ID === match.match_id);
-            console.log("MATCHING RM: ", matchingRM)
+            //console.log("MATCHING RM: ", matchingRM)
             return {
                 ...match.toObject(),
                 averageRank: matchingRM.Average_Rank
@@ -192,8 +192,11 @@ const getDotaPlayerRecentMatchesSync = asyncHandler(async (req, res) => {
         
         // get the Average Rank
         let averageRank = nonExistMatch.average_rank;
+        if (averageRank == null) {
+            averageRank = 45;
+        }
 
-
+        //console.log("NEW THINGO : ", nonExistMatch)
         // setup the body
         req.body = {
             Dota_ID: data, Match_ID: nonExistMatch.match_id, 
@@ -203,9 +206,10 @@ const getDotaPlayerRecentMatchesSync = asyncHandler(async (req, res) => {
 
         // create the Player Match table entry
         const result = await createPlayerMatch(req, res);
+        console.log(result)
         
         //console.log("RESULT IS: ", result)
-        console.log(nonExistMatch.match_id)
+        //console.log(nonExistMatch.match_id)
         // set the values for the individual amtch
         req.body = indivMatch;
         req.body.match_id = nonExistMatch.match_id

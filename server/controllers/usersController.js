@@ -231,10 +231,10 @@ const getPlayerStatistics = asyncHandler(async (req, res) => {
             //console.log("RECENT DATA: ", recentMatches[i])
 
             if (recentMatches[i].Loss == true) {
-                recentWins += 1;
+                recentLosses += 1;
             } 
             if (recentMatches[i].Win == true) {
-                recentLosses += 1;
+                recentWins += 1;
             }
 
             const bracket = Math.floor(recentMatches[i].Average_Rank/10)

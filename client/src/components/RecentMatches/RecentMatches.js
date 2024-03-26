@@ -5,6 +5,7 @@ import { LOBBYTYPES } from '../../config/lobbyTypes';
 import { HERODATA } from '../../config/heroData';
 import useAuth from '../../hooks/useAuth';
 import { findRank } from '../../config/ranks';
+import { useNavigate } from 'react-router-dom';
 
 const RecentMatches = ({dota_id}) => {
     
@@ -26,6 +27,14 @@ const RecentMatches = ({dota_id}) => {
     console.log("MATCHES RESULT : ", matches)
     console.log(error)
     var content;
+
+    const navigate = useNavigate();
+
+    const onNavigateToMatch = (matchID) => {
+        //console.log("NAVIGATE CLICK: ", matchID);
+        navigate(`/match/${matchID}`)
+    }
+
 
     if (isLoading) {
         content = (<p>Loading Recent Matches</p>)
@@ -61,7 +70,7 @@ const RecentMatches = ({dota_id}) => {
         content = (
             <div className='recent-match-container'>
                 {playerMatches.map((match, index) => (
-                <div className='match-sliver' key={index}>
+                <div className='match-sliver' key={index} onClick={() => onNavigateToMatch(match.matchDetails.match_id)}>
                     
                     {
                     // TODO, restructure the matches into a seperate array on load,

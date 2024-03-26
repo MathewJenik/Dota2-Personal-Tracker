@@ -25,6 +25,10 @@ const matchSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    radiant_win: {
+        type: Boolean,
+        require: true
+    },
     duration: {
         type: Number,
         require: true
@@ -108,6 +112,10 @@ const matchSchema = new mongoose.Schema({
             required: true
         },
         backpack_2: {
+            type: Number,
+            required: true
+        },
+        item_neutral: {
             type: Number,
             required: true
         },

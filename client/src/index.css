@@ -272,6 +272,80 @@ code {
 }
 
 
+/* Match */
+
+.match-container {
+  text-align: center;
+  background-color: var(--light-charcoal);
+}
+
+.scoring > p {
+  display: inline-flex;
+  font-size: xx-large;
+}
+
+.match-hero-icons {
+  width: 6em;
+  display: inline;
+}
+
+.match-item-icons {
+  width: 3em;
+  display: inline;
+}
+
+.match-hero-sliver {
+  display: block ruby;
+  background-color: var(--light-charcoal);
+}
+
+.match-details {
+  background-color: var(--dark-charcoal);
+}
+
+.match-details > h2 {
+  font-size: 2em;
+  
+}
+
+.neutral-item {
+  border-radius: 100%;
+  overflow: hidden;
+  display: inline-flex;
+  transform: translateY(50%);
+  width: 2.5em;
+  height: 2.5em;
+  border: 1px solid aliceblue;
+}
+
+.neutral-item > img {
+  object-fit: cover;
+}
+
+
+
+.greyed {
+  filter: grayscale(70%);
+}
+
+
+.radiant {
+  color: var(--radiantgreen);
+}
+
+.dire {
+  color: var(--direred);
+}
+
+.match-container > .radiant-victory {
+  color: var(--radiantgreen);
+  font-size: xxx-large;
+}
+
+.match-container > .dire-victory {
+  color: var(--direred);
+  font-size: xxx-large;
+}
 
 /* Matches */
 
@@ -286,6 +360,8 @@ code {
   
   border: 1px solid var(--blue);
   background-color: var(--light-charcoal);
+
+  cursor:pointer;
 }
 
 .match-sliver > .primary-details {

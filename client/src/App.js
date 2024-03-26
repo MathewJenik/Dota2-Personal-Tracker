@@ -31,6 +31,7 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from './features/auth/authSlice';
 import { useEffect } from 'react';
 import EditHeroForm from './features/heroes/EditHeroForm';
+import Match from './features/matches/Match';
 
 function App() {
 
@@ -76,6 +77,9 @@ function App() {
               </Route>
             </Route>
 
+            <Route path="match/:match_id" element={<Match></Match>}>
+
+            </Route>
               
               {/* Login Required with priveleges */}
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>

@@ -64,8 +64,11 @@ app.use('/items', require('./routes/itemRoutes.js'))
 // route for the Ability
 app.use('/abilities', require('./routes/abilityRoutes.js'))
 
-// ro0ute for the dota api
+// route for the dota api
 app.use('/dota', require('./routes/dotaAPIRoutes.js'))
+
+// route for the Matches (Match)
+app.use('/matches', require('./routes/matchRoutes.js'))
 
 // 404 page setup
 app.all('*', (req, res) => {
