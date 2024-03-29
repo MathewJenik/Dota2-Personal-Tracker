@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
+const UserVerification = require('../models/UserVerification')
 
 
 // @desc Login
@@ -133,8 +134,47 @@ const logout = (req, res) => {
 
 
 
+// @desc Verify the user email.
+// @route POST /verify
+// @access Public
+const verify = asyncHandler(async (req, res) => {
+    
+    const {verificationToken} = req.params;
+
+    if (!verificationToken) {
+        return res.status(400).json({message: 'Missing Verification Token.'})
+    }
+
+    // search for the user verificaiton that matches the key.
+    const foundUserVerification = await UserVerification.findOne({verificationToken}).exec()
+    
+
+    console.log("FOUND USER: ", foundUserVerification)
+
+    if (!foundUserVerification) {
+        return res.status(401).json({message: 'Unauthorized'})
+    }
+
+    // once its been found, set the user status to verified.
+    const username = foundUserVerification.username;
+    const foundUser = await User.findOne({username}).exec()
+
+    console.log("USER FOUND: ", foundUser)
+    
+    foundUser.accountVerified = true;
+
+    const updatedUser = await foundUser.save();
+
+    //const foundUser = await User.findOne({foundUserVerification.username}).exec()
+
+    res.send('Verification Completed');
+
+})
+
+
 module.exports = {
     login,
     refresh,
-    logout
+    logout,
+    verify
 }

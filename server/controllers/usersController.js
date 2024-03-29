@@ -3,6 +3,46 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const PlayerMatch = require('../models/PlayerMatch')
+const UserVerification = require('../models/UserVerification')
+const axios = require('axios')
+
+
+
+// mailchimp
+//https://mandrillapp.com/api/1.0/messages/send
+
+// mailerlite
+//https://connect.mailerlite.com/
+
+// elastic mail:
+
+console.log("MAIL API: ", process.env.ELASTICMAIL_API_KEY)
+// Function to send verification email
+
+//
+async function sendVerificationEmail(e, verificationCode) {
+
+
+    const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+        },
+        body: JSON.stringify({
+            from: 'D2PST<apps@mathewjenik.com>',
+            to: e,
+            subject: 'DPST - Account Verification',
+            html: `<p>Verification key: <a href="http://app.mathewjenik.com/auth/verify/${verificationCode}">Click to Verify Account.</a></p>`,
+        })
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        console.log(data)
+    }
+
+}
 
 // @desc Get all users
 // @route Get /users
@@ -51,14 +91,46 @@ const createUser = asyncHandler(async (req, res) => {
 
     // Hash the password
     const hashedPass = await bcrypt.hash(password, 10) // (password, n) where n is the salt rounds
-    const userObj = {username, "password": hashedPass, DotaID, roles}
+    const userObj = {username, "password": hashedPass, DotaID, roles, "accountVerified": false}
 
     // create and store the user
     const user = await User.create(userObj)
 
+
+    // setup the userVerification token
+    // Get current time in milliseconds
+    const currentTime = Date.now().toString();
+
+    // Concatenate username and current time
+    const uniqueString = username + currentTime;
+    
+
+    const key = await new Promise((resolve, reject) => {
+        bcrypt.hash(uniqueString, 10, (err, hash) => {
+          if (err) {
+            console.error('Error hashing:', err);
+            reject(err);
+            return;
+          }
+      
+          // Take first 10 characters/digits of the hashed result as the key
+          const key = hash.substring(0, 10);
+          console.log("KEY:", key);
+          resolve(key);
+        });
+      });
+
+    // now create the userVerification entry
+    const userVerification = await UserVerification.create({username, verificationToken: key})
+
+    // now send the email of the key:
+    sendVerificationEmail(username, key)
+    .then(() => console.log('Verification email sent successfully!'))
+    .catch((err) => console.error('Error sending verification email:', err));
+    
     // user successfully created
     if (user) {
-        res.status(201).json({message: `New User ${username} created`})
+        res.status(201).json({message: `New User ${username} created with Verification Token: ${key}`})
     } else {
         res.status(400).json({message: "Invalid User Data"})
     }

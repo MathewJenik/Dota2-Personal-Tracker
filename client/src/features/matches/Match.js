@@ -63,55 +63,54 @@ const Match = () => {
                             // items
                         }
 
+                        <div className='equipped-items'>
+                            {(itemDataArray.find(item => item?.id === player.item_0)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
 
-                        {(itemDataArray.find(item => item?.id === player.item_0)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon.webp`}></img>
-                            
-                        )} 
+                            {(itemDataArray.find(item => item?.id === player.item_1)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
 
-                        {(itemDataArray.find(item => item?.id === player.item_1)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon.webp`}></img>
                             
-                        )} 
-
-                        
-                        {(itemDataArray.find(item => item?.id === player.item_2)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon.webp`}></img>
+                            {(itemDataArray.find(item => item?.id === player.item_2)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
                             
-                        )} 
-                        
-                        {(itemDataArray.find(item => item?.id === player.item_3)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon.webp`}></img>
+                            {(itemDataArray.find(item => item?.id === player.item_3)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
                             
-                        )} 
-                        
-                        {(itemDataArray.find(item => item?.id === player.item_4)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon.webp`}></img>
-                            
-                        )} 
-                        {(itemDataArray.find(item => item?.id === player.item_5)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon.webp`}></img>
-    
-                        )} 
-
+                            {(itemDataArray.find(item => item?.id === player.item_4)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
+                            {(itemDataArray.find(item => item?.id === player.item_5)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon.webp`}></img>
+        
+                            )} 
+                        </div> 
                         
                         {
                             // backpacked items
                         }
-                        <p>backpack:</p>
-                        <div className=''>
+                        <div className='backpack-items'>
 
                             {(backpack.find(item => item?.id === player.backpack_0)?.dname) == "empty" ? (<></>) : (
                             <img className={"match-item-icons greyed"} src={`/assets/images/items/${
@@ -143,7 +142,6 @@ const Match = () => {
                             // equipped neutral items
                         }
                         
-                        <p>Neutral: </p>
                         <div className='neutral-item'>
                         {(itemDataArray.find(item => item?.id === player.item_neutral)?.dname) == "empty" ? (<></>) : (
                                 <img className={"match-item-icons greyed"} src={`/assets/images/items/${
@@ -175,54 +173,54 @@ const Match = () => {
                         }
 
 
-                        {(itemDataArray.find(item => item?.id === player.item_0)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon.webp`}></img>
-                            
-                        )} 
+                        <div className='equipped-items'>
+                            {(itemDataArray.find(item => item?.id === player.item_0)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_0).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
 
-                        {(itemDataArray.find(item => item?.id === player.item_1)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon.webp`}></img>
-                            
-                        )} 
+                            {(itemDataArray.find(item => item?.id === player.item_1)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_1).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
 
-                        
-                        {(itemDataArray.find(item => item?.id === player.item_2)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon.webp`}></img>
                             
-                        )} 
-                        
-                        {(itemDataArray.find(item => item?.id === player.item_3)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon.webp`}></img>
+                            {(itemDataArray.find(item => item?.id === player.item_2)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_2).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
                             
-                        )} 
-                        
-                        {(itemDataArray.find(item => item?.id === player.item_4)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon.webp`}></img>
+                            {(itemDataArray.find(item => item?.id === player.item_3)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_3).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
                             
-                        )} 
-                        {(itemDataArray.find(item => item?.id === player.item_5)?.dname) == "empty" ? (<></>) : (
-                            <img className={"match-item-icons"} src={`/assets/images/items/${
-                                `${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon`
-                            }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon.webp`}></img>
-    
-                        )} 
-
+                            {(itemDataArray.find(item => item?.id === player.item_4)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_4).dname.split(' ').join('_')}_icon.webp`}></img>
+                                
+                            )} 
+                            {(itemDataArray.find(item => item?.id === player.item_5)?.dname) == "empty" ? (<></>) : (
+                                <img className={"match-item-icons"} src={`/assets/images/items/${
+                                    `${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon`
+                                }.webp`} alt={`${itemDataArray.find(item => item.id === player.item_5).dname.split(' ').join('_')}_icon.webp`}></img>
+        
+                            )} 
+                        </div>
                         
                         {
                             // backpacked items
                         }
-                        <p>backpack:</p>
-                        <div className=''>
+                        <div className='backpack-items'>
 
                             {(backpack.find(item => item?.id === player.backpack_0)?.dname) == "empty" ? (<></>) : (
                             <img className={"match-item-icons greyed"} src={`/assets/images/items/${
@@ -254,7 +252,6 @@ const Match = () => {
                             // equipped neutral items
                         }
                         
-                        <p>Neutral: </p>
                         <div className='neutral-item'>
                         {(itemDataArray.find(item => item?.id === player.item_neutral)?.dname) == "empty" ? (<></>) : (
                                 <img className={"match-item-icons greyed"} src={`/assets/images/items/${

@@ -279,6 +279,11 @@ code {
   background-color: var(--light-charcoal);
 }
 
+.scoring {
+  padding-bottom: 1em;
+  border-bottom: 3px solid var(--dark-charcoal);
+}
+
 .scoring > p {
   display: inline-flex;
   font-size: xx-large;
@@ -290,17 +295,38 @@ code {
 }
 
 .match-item-icons {
-  width: 3em;
-  display: inline;
+  width: 4em;
+  /*display: inline;*/
 }
 
 .match-hero-sliver {
-  display: block ruby;
+  display: inline-flex;
   background-color: var(--light-charcoal);
+  height: 4em;
+  padding-right: 2em;
+  border: 2px solid var(--blue);
+  border-radius: 2em;
+  overflow: hidden;
+  background-color: var(--dark-charcoal);
 }
 
+.match-hero-sliver > p {
+  width: 7em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.match-hero-sliver > img{
+  left:0;
+}
+
+.match-hero-sliver > img:last-child{
+  right:10em;
+}
+
+
 .match-details {
-  background-color: var(--dark-charcoal);
+  background-color: var(--light-charcoal);
 }
 
 .match-details > h2 {
@@ -308,14 +334,28 @@ code {
   
 }
 
+.equipped-items {
+  display: inline-flex;
+  width: 28em;
+}
+
+.backpack-items {
+  margin-left: 0em;
+  margin-right: 0em;
+  display: inline-flex;
+  width: 12em;
+}
+
 .neutral-item {
   border-radius: 100%;
   overflow: hidden;
   display: inline-flex;
-  transform: translateY(50%);
+  /*transform: translateY(50%);*/
   width: 2.5em;
   height: 2.5em;
   border: 1px solid aliceblue;
+  margin: auto;
+  margin-left: 2em;
 }
 
 .neutral-item > img {

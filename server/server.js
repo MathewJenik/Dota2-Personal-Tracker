@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3500
 
 const passport = require('passport')
 const SteamStrategy = require('passport-steam')
+const mailchimp = require('@mailchimp/mailchimp_marketing')
 
 // environment variable colelction
 console.log(process.env.NODE_ENV)

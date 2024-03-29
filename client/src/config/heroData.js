@@ -1,7 +1,7 @@
 export const HERODATA = {
     1: {
         "name": "antimage",
-        "imagePath": "Antimage_icon.webp"
+        "imagePath": "Anti-Mage_icon.webp"
     },
     2: {
         "name": "axe",
