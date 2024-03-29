@@ -26,14 +26,17 @@ const Navigation = () => {
         <Link to={'/'}>Dota 2 Personal Stat Tracker</Link>
         <Link to={'/heroes'}>Heroes</Link>
         <Link to={'/items'}>Items</Link>
-        <div className='nav-expandable' onMouseEnter={dashExpandToggle} onMouseLeave={dashExpandToggle}>
-        <Link to={'/dashboard'}>
-            Player-Dashboard
+        {username && (
+          <div className='nav-expandable' onMouseEnter={dashExpandToggle} onMouseLeave={dashExpandToggle}>
+          <Link to={'/dashboard'}>
+              Player-Dashboard
+              
+          </Link>
+         </div>
             
-        </Link>
+        )}
 
         
-        </div>
 
         {status==ROLES.Admin && (
             <Link to={'admin'}>Admin</Link>
