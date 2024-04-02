@@ -32,7 +32,7 @@ export const heroesApiSlice = ApiSlice.injectEndpoints({
         }),
         addNewHero: builder.mutation({
             query: initialHeroData => ({
-                url: '/users',
+                url: '/heroes',
                 method: 'POST',
                 body: {
                     ...initialHeroData,
@@ -53,7 +53,7 @@ export const heroesApiSlice = ApiSlice.injectEndpoints({
 
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'User', id: arg.id }
+                { type: 'Hero', id: arg.id }
             ]
         }),
         deleteHero: builder.mutation({

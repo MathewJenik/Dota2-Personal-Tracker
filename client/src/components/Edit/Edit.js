@@ -38,6 +38,8 @@ const Edit = (props) => {
         });
     }
 
+    console.log("KEY VALUE ARRAY: ", keyValueArray)
+
     function handleInputChange(event) {
         const { name, value } = event.target;
         // Update the corresponding key-value pair in keyValueArray

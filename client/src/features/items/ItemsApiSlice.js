@@ -7,7 +7,7 @@ const itemsAdapter = createEntityAdapter({})
 const initialState = itemsAdapter.getInitialState();
 
 
-export const ItemsApiSlice = ApiSlice.injectEndpoints({
+export const itemsApiSlice = ApiSlice.injectEndpoints({
     endpoints: builder => ({
         getItems: builder.query({
             query: () => '/items',
@@ -76,15 +76,15 @@ export const {
     useAddNewItemMutation,
     useUpdateItemMutation,
     useDeleteItemMutation,
-} = ItemsApiSlice
+} = itemsApiSlice
 
 
 // returns the query result object
-export const selectitemsResult = ItemsApiSlice.endpoints.getItems.select()
+export const selectItemsResult = itemsApiSlice.endpoints.getItems.select()
 
 // create memoized selector
-const selectitemsData = createSelector(
-    selectitemsResult,
+const selectItemsData = createSelector(
+    selectItemsResult,
     itemsResult => itemsResult.data // normalized state object with ids
 )
 
@@ -94,4 +94,4 @@ export const {
     selectById: selectItemById,
     selectIds: selectItemIds
     // pass in a selector that returns the items slice of state
-} = itemsAdapter.getSelectors(state => selectitemsData(state ?? initialState))
+} = itemsAdapter.getSelectors(state => selectItemsData(state) ?? initialState)

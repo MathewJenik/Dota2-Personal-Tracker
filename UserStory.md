@@ -15,7 +15,14 @@
 15. [] User Editing
 16. [] User Creation
 17. [] Role based Access + Auth
+18. [] Admin dashboard
+19. [] player dashboard
+20. [] Auto update clients instance (cookies etc) when settings have been changed (important details such as dota ID).
 
+
+Potential Names:
+Dota 2 Insight
+Dota 2 Oversight
 
 Database:
 User:

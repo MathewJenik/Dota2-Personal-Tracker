@@ -8,17 +8,53 @@
   --light-charcoal: #34495E;
   --white: #ffffff;
   --blue: #3498DB;
-
+  --radiantgreen: #2ECC71;
+  --direred: #FF5252;
 }
 
 html {
   background-color: var(--dark-charcoal);
-  width: 100vw;
+  /*width: 100vw;*/
   min-height: 100vh;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p, h1, h2, h3, h4, h5, h6, label {
   color: var(--white);
+}
+
+label {
+  padding: 1em;
+}
+
+form {
+  background-color: #34495E;
+  margin: 1em;
+  padding: 2em;
+  padding-left: 4em;
+  padding-right: 4em;
+  width: min-content;
+  margin: auto;
+}
+
+.form-submit {
+  cursor: pointer;
+  background-color: var(--blue) !important;
+  color: #ffffff;
+  padding: 1em;
+}
+
+form > label, form > input, form > button {
+  display: flex;
+  width: fit-content;
+  margin: auto;
+}
+
+form > button {
+
+}
+
+.form-centre {
+  margin-top: 5em;
 }
 
 button, a {
@@ -42,7 +78,7 @@ code {
 
 
 .page {
-  min-height: 100vh;
+  min-height: 90vh;
 
 }
 
@@ -144,6 +180,7 @@ code {
 
 
 
+
 /* */
 .item-container svg {
   fill: white;
@@ -157,4 +194,247 @@ code {
   width:3em;
   display: inline;
   cursor: pointer;
+}
+
+
+/* Admin page */
+
+.admin-options {
+  margin: auto;
+  display: table;
+}
+
+
+/* Profile page */
+.primary-heading {
+  text-align: center;
+  font-size: xxx-large;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+
+/* Statistics */
+.player-statistics {
+  background-color: var(--light-charcoal);
+  display: flex;
+  
+  border: 1px solid var(--blue);
+}
+
+.player-statistics section:first-child {
+  border-right: 1px solid var(--dark-charcoal);
+  padding-right: 1em;
+}
+
+.player-statistics section:nth-child(2) {
+  border-right: 1px solid var(--dark-charcoal);
+  padding-right: 1em;
+}
+
+.player-statistics section h1 {
+  margin: auto;
+  width: fit-content;
+  font-size: large;
+  font-weight: bold;
+}
+
+.player-statistics section article {
+  display: flex;
+}
+
+.player-statistics section article > h2 {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.ranks {
+  display: inline-flex;
+  border-left: 2px solid var(--dark-charcoal);
+  
+}
+
+.ranks > section:first-child {
+  padding-left: 4em;
+  padding-right: 4em;
+}
+
+.ranks > section > article {
+  width: 10em;
+  margin: auto;
+}
+
+.average-rank {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* Match */
+
+.match-container {
+  text-align: center;
+  background-color: var(--light-charcoal);
+}
+
+.scoring {
+  padding-bottom: 1em;
+  border-bottom: 3px solid var(--dark-charcoal);
+}
+
+.scoring > p {
+  display: inline-flex;
+  font-size: xx-large;
+}
+
+.match-hero-icons {
+  width: 6em;
+  display: inline;
+}
+
+.match-item-icons {
+  width: 4em;
+  /*display: inline;*/
+}
+
+.match-hero-sliver {
+  display: inline-flex;
+  background-color: var(--light-charcoal);
+  height: 4em;
+  padding-right: 2em;
+  border: 2px solid var(--blue);
+  border-radius: 2em;
+  overflow: hidden;
+  background-color: var(--dark-charcoal);
+}
+
+.match-hero-sliver > p {
+  width: 7em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.match-hero-sliver > img{
+  left:0;
+}
+
+.match-hero-sliver > img:last-child{
+  right:10em;
+}
+
+
+.match-details {
+  background-color: var(--light-charcoal);
+}
+
+.match-details > h2 {
+  font-size: 2em;
+  
+}
+
+.equipped-items {
+  display: inline-flex;
+  width: 28em;
+}
+
+.backpack-items {
+  margin-left: 0em;
+  margin-right: 0em;
+  display: inline-flex;
+  width: 12em;
+}
+
+.neutral-item {
+  border-radius: 100%;
+  overflow: hidden;
+  display: inline-flex;
+  /*transform: translateY(50%);*/
+  width: 2.5em;
+  height: 2.5em;
+  border: 1px solid aliceblue;
+  margin: auto;
+  margin-left: 2em;
+}
+
+.neutral-item > img {
+  object-fit: cover;
+}
+
+
+
+.greyed {
+  filter: grayscale(70%);
+}
+
+
+.radiant {
+  color: var(--radiantgreen);
+}
+
+.dire {
+  color: var(--direred);
+}
+
+.match-container > .radiant-victory {
+  color: var(--radiantgreen);
+  font-size: xxx-large;
+}
+
+.match-container > .dire-victory {
+  color: var(--direred);
+  font-size: xxx-large;
+}
+
+/* Matches */
+
+.recent-match-container {
+  width: 40em;
+  margin: auto;
+}
+
+.match-sliver {
+  width: 40em;
+  display: inline-flex;
+  
+  border: 1px solid var(--blue);
+  background-color: var(--light-charcoal);
+
+  cursor:pointer;
+}
+
+.match-sliver > .primary-details {
+  display: inline-flex;
+  width: 10em;
+}
+
+
+.match-sliver > table {
+  width: 20em;
+}
+
+.match-sliver > table h2 {
+  text-align: center ;
+  width: 10em;
+}
+
+.match-sliver > .primary-details > img {
+  width: 5em;
+}
+
+.match-sliver th {
+  width: 10em;
+}
+.match-sliver .average-rank {
+  width: 3em;
+  height: 3em;
+}
+
+.match-sliver .match-win {
+  color: var(--radiantgreen);
+}
+
+.match-sliver .match-loss {
+  color: var(--direred);
 }

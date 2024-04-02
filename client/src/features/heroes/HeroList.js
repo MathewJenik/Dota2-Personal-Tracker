@@ -36,12 +36,15 @@ function HeroList({adminMode}) {
         : null
 
         content = (
+            <>
+            <h1 className='primary-heading'>Heroes</h1>
             <ul>
                 {(adminMode && (
                     <CreateNewComponent urlTo="/admin/hero/create/" />
                 ))}
                 {tableContent}
             </ul>
+            </>
 
         )
 

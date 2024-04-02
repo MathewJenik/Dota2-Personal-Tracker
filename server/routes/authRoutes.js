@@ -9,4 +9,9 @@ router.route('/refresh').get(authController.refresh)
 
 router.route('/logout').post(authController.logout)
 
+
+router.route('/verify/:verificationToken')
+    .get(authController.verify)
+
+
 module.exports = router

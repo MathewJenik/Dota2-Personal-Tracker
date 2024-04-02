@@ -65,13 +65,13 @@ const Login = () => {
     <div>
       <section>
         <header>
-          <h1>User Login</h1>
+          <h1 className='primary-heading'>Login</h1>
         </header>
         <main>
 
-          <form onSubmit={handleSubmit}>
-            <label htmlFor='username'>Username: </label>
-            <input id='username' placeholder='Username' onChange={handleUsernameInput} required></input>
+          <form className='form-centre' onSubmit={handleSubmit}>
+            <label htmlFor='username'>Email: </label>
+            <input id='username' placeholder='Email' onChange={handleUsernameInput} required></input>
 
             
             <label htmlFor='password'>Password: </label>

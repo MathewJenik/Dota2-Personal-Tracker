@@ -1,5 +1,6 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { ApiSlice } from "../../app/api/ApiSlice";
+import { useSelector } from "react-redux";
 
 const usersAdapter = createEntityAdapter({})
 
@@ -40,7 +41,7 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 }
             }),
             invalidatesTags: [
-                {type: "Item", id: "LIST"}
+                {type: "User", id: "LIST"}
             ]
         }),
         updateUser: builder.mutation({
@@ -56,6 +57,15 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 { type: 'User', id: arg.id }
             ]
         }),
+        setUserDotaID: builder.mutation({
+            query: data => ({
+                url: "/users/dotaid",
+                method: 'PATCH',
+                body: {
+                    ...data,
+                }
+            })
+        }),
         deleteUser: builder.mutation({
             query: ({id}) => ({
                 url: '/users',
@@ -66,6 +76,15 @@ export const UsersApiSlice = ApiSlice.injectEndpoints({
                 {type: 'User', id: arg.id }
             ]
         }),
+        getUserByID: builder.query({
+            query: (id) => `/users/${id}`,
+            invalidatesTags: [
+                {type: "Item", id: "LIST"}
+            ]
+        }),
+        getPlayerStatistics: builder.query({
+            query: ({id}) => `/users/statistics/${id}`,
+        })
     })
 })
 
@@ -74,6 +93,9 @@ export const {
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,
+    useGetUserByIDQuery,
+    useSetUserDotaIDMutation,
+    useGetPlayerStatisticsQuery
 } = UsersApiSlice
 
 // returns the query result object
@@ -91,4 +113,4 @@ export const {
     selectById: selectUserById,
     selectIds: selectUserIds
     // pass in a selector that returns the users slice of state
-} = usersAdapter.getSelectors(state => selectUsersData(state ?? initialState))
+} = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState)

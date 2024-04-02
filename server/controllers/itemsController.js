@@ -74,7 +74,7 @@ const updateItem = asyncHandler(async (req, res) => {
     const {id, name, cost, alterations, description, upgradePath, predecessorPath, imageLoc, active} = req.body
 
     // confirm data
-    if (!id || !name || !cost || !alterations || !description || !Array.isArray(upgradePath || !Array.isArray(predecessorPath)) || !imageLoc || typeof active != 'boolean') {
+    if (!id || !name || !cost || !alterations || !description || !Array.isArray(upgradePath) || !Array.isArray(predecessorPath) || !imageLoc || typeof active != 'boolean') {
         
         return res.status(400).json({message: "All fields are required"});
     }

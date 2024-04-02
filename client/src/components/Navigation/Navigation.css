@@ -1,10 +1,16 @@
 .nav-bar {
 
     padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding-bottom: 2em;
     text-align: center;
 
 
+}
+
+
+.nav-bar-expanded {
+    margin-bottom: -1.5em !important;
+    
 }
 
 .nav-bar a {
@@ -14,4 +20,10 @@
 
 .nav-expandable {
     display: inline;
+    padding-bottom: 0em;
+
+}
+
+.secondary-nav {
+    background-color: var(--light-charcoal);
 }

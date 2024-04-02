@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
+const UserVerification = require('../models/UserVerification')
 
 
 // @desc Login
@@ -14,6 +15,7 @@ const login = asyncHandler(async (req, res) => {
     }
 
     const foundUser = await User.findOne({username}).exec()
+    
 
     console.log("FOUND USER: ", foundUser)
 
@@ -31,7 +33,9 @@ const login = asyncHandler(async (req, res) => {
         {
             "UserInfo": {
                 "username": foundUser.username,
-                "roles": foundUser.roles
+                "roles": foundUser.roles,
+                "userID": foundUser._id,
+                "dotaID": foundUser.DotaID
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -47,7 +51,7 @@ const login = asyncHandler(async (req, res) => {
     // Create a secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
         httpOnly: true, // accessible only by web server
-        secure: true,
+        secure: false,
         sameSite: 'None',
         
         maxAge: 7*24*60*60*1000 // cookie expirey: set to match refreshToken
@@ -56,6 +60,8 @@ const login = asyncHandler(async (req, res) => {
     // Send accessToken containing username and roles
     res.json({accessToken})
     res.send('Login successful');
+    console.log("ACCESS TOKEN: ", accessToken)
+    console.log("FOUND USER: ", foundUser)
 
 })
 
@@ -90,9 +96,11 @@ const refresh = (req, res) => {
 
             const accessToken = jwt.sign(
                 {
-                    "UserInfo" : {
+                    "UserInfo": {
                         "username": foundUser.username,
-                        "roles": foundUser.roles
+                        "roles": foundUser.roles,
+                        "userID": foundUser._id,
+                        "dotaID": foundUser.DotaID
                     }
                 },
                 process.env.ACCESS_TOKEN_SECRET,
@@ -125,8 +133,48 @@ const logout = (req, res) => {
 }
 
 
+
+// @desc Verify the user email.
+// @route POST /verify
+// @access Public
+const verify = asyncHandler(async (req, res) => {
+    
+    const {verificationToken} = req.params;
+
+    if (!verificationToken) {
+        return res.status(400).json({message: 'Missing Verification Token.'})
+    }
+
+    // search for the user verificaiton that matches the key.
+    const foundUserVerification = await UserVerification.findOne({verificationToken}).exec()
+    
+
+    console.log("FOUND USER: ", foundUserVerification)
+
+    if (!foundUserVerification) {
+        return res.status(401).json({message: 'Unauthorized'})
+    }
+
+    // once its been found, set the user status to verified.
+    const username = foundUserVerification.username;
+    const foundUser = await User.findOne({username}).exec()
+
+    console.log("USER FOUND: ", foundUser)
+    
+    foundUser.accountVerified = true;
+
+    const updatedUser = await foundUser.save();
+
+    //const foundUser = await User.findOne({foundUserVerification.username}).exec()
+
+    res.send('Verification Completed');
+
+})
+
+
 module.exports = {
     login,
     refresh,
-    logout
+    logout,
+    verify
 }

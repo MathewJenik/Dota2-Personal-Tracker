@@ -17,28 +17,57 @@ const Navigation = () => {
         
     }
 
+    function dashExpandOn() {
+      setDashExpand(true);
+    }
+
+    const base = process.env.REACT_APP_BASE_URL;
+    console.log("ENVIRONMENT VARIALBE IS: ", base)
+
   return (
-    <div className='nav-bar'>
-        <Link to={'/'}>Dota 2 Personal Stat Tracker</Link>
-        <Link to={'/heroes'}>Heroes</Link>
-        <Link to={'/items'}>Items</Link>
-        <div className='nav-expandable' onMouseEnter={dashExpandToggle} onMouseLeave={dashExpandToggle}>
-        <Link to={'/dashboard'}>
-            Player-Dashboard
-            {dashExpand && (
-            <div onMouseLeave={dashExpandToggle} className='secondary-nav'>
-                <Link to={'dashboard/hero'}>Hero</Link>
-            </div>
-            )}
-        </Link>
+    <div className={`nav-bar ${dashExpand ? 'nav-bar-expanded' : ''}`}>
+        <Link to={`/${base}`}>Dota 2 Personal Stat Tracker</Link>
+        <Link to={`/${base}/heroes`}>Heroes</Link>
+        <Link to={`/${base}/items`}>Items</Link>
+        {username && (
+          <div className='nav-expandable' onMouseEnter={dashExpandToggle} onMouseLeave={dashExpandToggle}>
+          <Link to={'/dashboard'}>
+              Player-Dashboard
+              
+          </Link>
+         </div>
+            
+        )}
 
         
-        </div>
 
         {status==ROLES.Admin && (
             <Link to={'admin'}>Admin</Link>
         )}
-        <Link to={'login'}>Login</Link>
+        
+        {/* check to see if logged in, if not show login*/}
+        {!username && (
+          <>
+            <Link to={'login'}>Login</Link>
+            <Link to={'register'}>Sign Up</Link>
+          </>
+          )
+        }
+
+        {/* check to see if logged in, show username and link*/}
+        {username && (
+          <Link to={'profile'}>{username}</Link>
+
+          )
+        }
+
+        {/* Expanding options*/}
+        {dashExpand && (
+            <div onMouseLeave={dashExpandToggle} onMouseEnter={dashExpandOn} className='secondary-nav'>
+                <Link to={'dashboard/hero'}>Hero</Link>
+            </div>
+        )}
+
 
     </div>
   )

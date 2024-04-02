@@ -2,6 +2,47 @@ const User = require('../models/User')
 
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const PlayerMatch = require('../models/PlayerMatch')
+const UserVerification = require('../models/UserVerification')
+const axios = require('axios')
+
+
+
+// mailchimp
+//https://mandrillapp.com/api/1.0/messages/send
+
+// mailerlite
+//https://connect.mailerlite.com/
+
+// elastic mail:
+
+console.log("MAIL API: ", process.env.ELASTICMAIL_API_KEY)
+// Function to send verification email
+
+//
+async function sendVerificationEmail(e, verificationCode) {
+
+
+    const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+        },
+        body: JSON.stringify({
+            from: 'D2PST<apps@mathewjenik.com>',
+            to: e,
+            subject: 'DPST - Account Verification',
+            html: `<p>Verification key: <a href="http://app.mathewjenik.com/auth/verify/${verificationCode}">Click to Verify Account.</a></p>`,
+        })
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        console.log(data)
+    }
+
+}
 
 // @desc Get all users
 // @route Get /users
@@ -14,6 +55,20 @@ const getAllUsers = asyncHandler(async (req, res) => {
     else {
         res.json(users)
     }
+})
+
+// @desc Get a singular User
+// @route Get /hero/:{id}
+// @access Private
+const getSingularUser  = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findOne({_id: id}).lean().exec();
+
+    if (!user) {
+        return res.status(404).json({message: "User not found"})
+    }
+    res.json(user);
+    
 })
 
 // @desc Create a user
@@ -36,14 +91,46 @@ const createUser = asyncHandler(async (req, res) => {
 
     // Hash the password
     const hashedPass = await bcrypt.hash(password, 10) // (password, n) where n is the salt rounds
-    const userObj = {username, "password": hashedPass, DotaID, roles}
+    const userObj = {username, "password": hashedPass, DotaID, roles, "accountVerified": false}
 
     // create and store the user
     const user = await User.create(userObj)
 
+
+    // setup the userVerification token
+    // Get current time in milliseconds
+    const currentTime = Date.now().toString();
+
+    // Concatenate username and current time
+    const uniqueString = username + currentTime;
+    
+
+    const key = await new Promise((resolve, reject) => {
+        bcrypt.hash(uniqueString, 10, (err, hash) => {
+          if (err) {
+            console.error('Error hashing:', err);
+            reject(err);
+            return;
+          }
+      
+          // Take first 10 characters/digits of the hashed result as the key
+          const key = hash.substring(0, 10);
+          console.log("KEY:", key);
+          resolve(key);
+        });
+      });
+
+    // now create the userVerification entry
+    const userVerification = await UserVerification.create({username, verificationToken: key})
+
+    // now send the email of the key:
+    sendVerificationEmail(username, key)
+    .then(() => console.log('Verification email sent successfully!'))
+    .catch((err) => console.error('Error sending verification email:', err));
+    
     // user successfully created
     if (user) {
-        res.status(201).json({message: `New User ${username} created`})
+        res.status(201).json({message: `New User ${username} created with Verification Token: ${key}`})
     } else {
         res.status(400).json({message: "Invalid User Data"})
     }
@@ -121,9 +208,158 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 })
 
+
+
+
+// @desc set DotaID of user
+// @route Patch /users/dotaid
+// @access Private
+const setDotaID = asyncHandler(async (req, res) => {
+    // getting data
+    const {id, DotaID} = req.body;
+
+    // confirm data
+    if (!id || !DotaID ) {
+        return res.status(400).json({message: "All fields are required"});
+    }
+
+    const user = await User.findById(id).exec();
+
+    if (!user) {
+        return res.status(400).json({message: "User not found"});
+    }
+
+    // check for a duplicate user
+
+    const dup = await User.findOne({id}).lean().exec();
+    
+    // allow updates to original, checking for same id
+    if (dup && dup?._id.toString() !== id) {
+        return res.status(409).json({message: "Duplicate Username."});
+    }
+
+    user.DotaID = DotaID;
+
+    const updatedUser = await user.save();
+    res.json({message: `Updated dotaID for ${updatedUser.username}`})
+
+})
+
+
+
+// @desc get the statistics linked to a dota account.
+// @route Patch /users/statistics/:{id}
+// @access Private
+const getPlayerStatistics = asyncHandler(async (req, res) => {
+    // getting data
+    const { id } = req.params;
+    const DotaID = id; // Assuming your route parameter is named "id"
+
+    console.log("PDOTA: ", DotaID)
+
+    // confirm data
+    if (!DotaID ) {
+        return res.status(400).json({message: "All fields are required"});
+    }
+
+
+    let totalGames = 0;
+    let totalWins = 0;
+    let totalLosses = 0;
+    
+    let recentAverageRank = 0;
+    let recentWins = 0;
+    let recentLosses = 0;
+
+    let playerRank = 0;
+
+
+    try {
+        // Find all the player matches that match the dota ID
+        const playerMatches = await PlayerMatch.find({Dota_ID: DotaID});
+        
+        // Find the latest 20 matches for the given Dota ID
+        const recentMatches = await PlayerMatch.find({ Dota_ID: DotaID }).sort({ Time_Played: -1 }).limit(20);
+        
+        // Calculate win rate
+        totalGames = playerMatches.length;
+
+        // calculate average rank over 20 games
+
+        for (let i = 0; i < playerMatches.length; i++) {
+            //console.log("Player Match Details: ", playerMatches[i])
+            if (playerMatches[i].Loss == true) {
+                totalLosses += 1;
+            } 
+            if (playerMatches[i].Win == true) {
+                totalWins += 1;
+            }
+
+        }
+
+
+        // get the average rank for those 20 matches
+        for (let i = 0; i < recentMatches.length; i++) {
+            //console.log("RECENT DATA: ", recentMatches[i])
+
+            if (recentMatches[i].Loss == true) {
+                recentLosses += 1;
+            } 
+            if (recentMatches[i].Win == true) {
+                recentWins += 1;
+            }
+
+            const bracket = Math.floor(recentMatches[i].Average_Rank/10)
+            const star =  recentMatches[i].Average_Rank%10
+            
+            const ave = (bracket*10) + (star * 2)
+            
+            console.log("Bracket : ", bracket , " | Star : ", star, " | Ave : ", ave)
+            // add average rank
+            recentAverageRank += ave
+
+        }
+
+        recentAverageRank = recentAverageRank/20
+
+        // convert the averageRank back into its format of 1-5 for each 10
+        RARBracket = Math.floor(recentAverageRank/10)
+        RARStar = recentAverageRank%10
+        RARStar = RARStar / 2
+        
+        recentAverageRank = (RARBracket * 10) + (RARStar)
+
+
+        // data to get the most played hero in the last 20 games,
+        // with its win rate and wins/losses + other details
+
+
+    } catch (error) {
+        console.log("Error: ", error)
+        return res.json({ERROR: error, INFO: DotaID})
+    }
+
+    return res.json(
+        {
+            wins: totalWins,
+            losses: totalLosses,
+            total: totalGames,
+            winrate: (totalWins/totalGames),
+            recentWins: recentWins,
+            recentLosses: recentLosses,
+            recentWinRate: (recentWins/20),
+            recentMatchAverageRank: recentAverageRank,
+            playerRank: playerRank
+    })
+
+})
+
 module.exports = {
     getAllUsers,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getSingularUser,
+    setDotaID,
+    getPlayerStatistics
 }

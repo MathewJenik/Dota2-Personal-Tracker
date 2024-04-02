@@ -23,22 +23,32 @@ import {ROLES} from './config/roles';
 import RequireAuth from './features/auth/RequireAuth';
 
 import { getTokenFromLocalStorage} from './features/api/storage';
+import Admin from './pages/Admin/Admin';
+import Profile from './pages/Profile/Profile';
+import ProfilePage from './pages/Profile/ProfilePage';
+import Register from './features/auth/Register';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from './features/auth/authSlice';
+import { useEffect } from 'react';
+import EditHeroForm from './features/heroes/EditHeroForm';
+import Match from './features/matches/Match';
 
 function App() {
 
+  const dispatch = useDispatch(); // Get the dispatch function from react-redux
+
+  // When application initializes, check for token in localStorage
+  useEffect(() => {
+    const token = getTokenFromLocalStorage(); // Assume you have a function to get token from localStorage
+    if (token) {
+      // Use token for authentication
+      dispatch(setCredentials({ accessToken: token })); // Dispatch setCredentials action with token
+    } else {
+      // User is not authenticated
+    }
+  }, [dispatch]); // Add dispatch to the dependency array to ensure useEffect runs when dispatch changes
 
 
-// When application initializes, check for token in localStorage
-const initializeApp = () => {
-  const token = getTokenFromLocalStorage();
-  if (token) {
-    // Use token for authentication
-  } else {
-    // User is not authenticated
-  }
-};
-
-initializeApp();
 
   return (
     <Routes>
@@ -48,6 +58,7 @@ initializeApp();
 
 
         <Route path="login" element={<Login />}/>
+        <Route path="register" element={<Register/>} />
         <Route element={<PersistLogin />}>
           <Route element={<Prefetch />}>
 
@@ -60,10 +71,20 @@ initializeApp();
             
             <Route path="items" element={<ItemList adminMode={false}/>} />
 
+            <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+              <Route path='profile'>
+                  <Route index element={<ProfilePage />}></Route>
+              </Route>
+            </Route>
+
+            <Route path="match/:match_id" element={<Match></Match>}>
+
+            </Route>
               
               {/* Login Required with priveleges */}
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
               <Route path='admin'>
+                <Route index element={<Admin/>}></Route>
                 <Route path='items' element={<ItemList adminMode={true}/>} />
                 <Route path='users' element={<UsersList/>} />
                 <Route path='heroes' element={<HeroList adminMode={true}/>} />
@@ -97,13 +118,19 @@ initializeApp();
                   />
                   */}/>
 
-                  <Route path='edit/:id'
-                    element={<Edit recUrl="http://localhost:3500/heroes" 
+                  {
+                    /*
+                    <Edit recUrl="http://localhost:3500/heroes" 
                     editUrl="http://localhost:3500/heroes" 
                     deleteUrl="http://localhost:3500/heroes"
                     inputs={['name', 'description', 'primaryAttribute', 'imageLoc', 'abilities', 'active']}
                     inputsType={['String', 'String', 'String', 'String', 'ArrayS', 'Boolean']}
-                  />}/>
+                  />
+                    */
+                  }
+
+                  <Route path='edit/:id'
+                    element={<EditHeroForm />}/>
                 </Route>
 
 

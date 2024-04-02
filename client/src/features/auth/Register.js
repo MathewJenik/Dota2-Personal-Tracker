@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import { useNavigate } from 'react-router-dom'
+import { useAddNewUserMutation } from '../users/UsersApiSlice'
 
 
 const Register = () => {
 
   const userRef = useRef();
-  const errRef = useRef();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -16,7 +16,9 @@ const Register = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   
-  const [login, {isLoading}] = useLoginMutation()
+  const [addNewUser, {isLoading}] = useAddNewUserMutation()
+
+  
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -29,8 +31,9 @@ const Register = () => {
     e.preventDefault()
 
     try {
-      const {accessToken} = await login({username, password}).unwrap()
-      dispatch(setCredentials({accessToken}));
+      const DotaID = '0'
+      const roles = ["User"]
+      await addNewUser({username, password, DotaID, roles})
       setUsername('');
       setPassword('');
       navigate('/dashboard');
@@ -45,7 +48,6 @@ const Register = () => {
         setErrorMessage(error.data?.message)
       }
 
-      errRef.current.focus();
     }
 
   }
@@ -54,13 +56,15 @@ const Register = () => {
     <div>
       <section>
         <header>
-          <h1>User Register</h1>
+          <h1 className='primary-heading'>Register</h1>
         </header>
         <main>
 
-          <form onSubmit={handleSubmit}>
-            <label htmlFor='username'>Username: </label>
-            <input id='username' placeholder='Username' onChange={handleUsernameInput} required></input>
+          <form className='form-centre' onSubmit={handleSubmit}>
+            
+            <label htmlFor='username'>Email: </label>
+            <input id='username' placeholder='Email' onChange={handleUsernameInput} required></input>
+            
 
             
             <label htmlFor='password'>Password: </label>

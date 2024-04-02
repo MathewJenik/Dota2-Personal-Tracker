@@ -1,0 +1,23 @@
+.content-container {
+    min-width: 15em;
+    max-width: 20em;
+    padding: 1em;
+    margin: 1em;
+    background-color: var(--light-charcoal);
+    display: inline-flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.content-container > div {
+    padding: 1em;
+}
+
+.content-container > div > button {
+    margin: auto;
+    display: block;
+}
+
+.content-container > div > button > h1 {
+    font-size: xxx-large;
+}
