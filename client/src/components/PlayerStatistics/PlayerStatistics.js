@@ -57,7 +57,7 @@ const PlayerStatistics = () => {
         content = (
             <div className='player-statistics'>
                 <section>
-                    <h1>All Time</h1>
+                    <h2>All Time</h2>
                     <article>
                         <PieChart width={200} height={200}>
                             <Pie data={piChartAllTimeData} nameKey="name" dataKey="matches" outerRadius={50}  label={({ name }) => name}  />
@@ -70,7 +70,7 @@ const PlayerStatistics = () => {
                 </section>
 
                 <section>
-                    <h1>Recent (20 Matches)</h1>
+                    <h2>Recent (20 Matches)</h2>
                     <article>
                         <PieChart width={200} height={200}>
                             <Pie data={piChartRecentData} nameKey="name" dataKey="matches" outerRadius={50}  label={({ name }) => name}  />
@@ -87,14 +87,14 @@ const PlayerStatistics = () => {
                 <div className='ranks'>
 
                     <section>
-                        <h1>Current Rank</h1>
+                        <h2>Current Rank</h2>
                         <article>
                             <img className='average-rank' src={`${foundRank.imageLocation}/SeasonalRank${aveBracket}-${aveStar}.webp`}></img>
                         </article>
                     </section>
 
                     <section>
-                        <h1>Average Rank (Recent 20 matches)</h1>
+                        <h2>Average Rank (last 20)</h2>
                         <article>
                             <img className='average-rank' src={`${foundRank.imageLocation}/SeasonalRank${aveBracket}-${aveStar}.webp`}></img>
                         </article>

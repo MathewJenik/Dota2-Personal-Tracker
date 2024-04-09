@@ -94,7 +94,8 @@ const Profile = () => {
         return (
             <div className='profile page'>
         
-                <h1 className='primary-heading'>Profile - {username}</h1>
+                <h1 className='primary-heading'>Profile</h1>
+                <hr></hr>
                 <div>
                     <form>
                         <label htmlFor='DotaID'>Dota 2 ID</label>
@@ -102,17 +103,25 @@ const Profile = () => {
                         <input className='form-submit' type="submit" value="Submit" onClick={onSaveClicked} />
                     </form>
         
-                    <button onClick={() => onLogoutClick()}>Log Out</button>
-                    <br></br>
-                    <button onClick={() => syncData({data: id})}>Sync</button>
+
+                    <div className='settings-controls-container'>
+                        <h1>Options</h1>
+                        <div className='settings-controls'>
+                            
+                            <button className='form-submit' onClick={() => onLogoutClick()}>Log Out</button>
+
+                            {
+                                /*
+                            <button className='form-submit' onClick={() => syncData({data: id})}>Sync</button>
+                                */
+                            }
+                            <button className='form-submit' onClick={() => {
+                                console.log("TEST SYNC BUTTON");
+                                syncRecentMatches({data: dID})}}>Load Recent Matches</button>
 
 
-                    <br></br>
-                    <p>Get Recent Matches</p>
-                    <button onClick={() => {
-                        console.log("TEST SYNC BUTTON");
-                        syncRecentMatches({data: dID})}}>Load Recent Matches</button>
-
+                        </div>
+                    </div>
                 </div>
         
             </div>

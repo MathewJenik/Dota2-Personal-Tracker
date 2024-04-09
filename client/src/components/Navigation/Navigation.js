@@ -31,7 +31,7 @@ const Navigation = () => {
         <Link to={`/${base}/items`}>Items</Link>
         {username && (
           <div className='nav-expandable' onMouseEnter={dashExpandToggle} onMouseLeave={dashExpandToggle}>
-          <Link to={'/dashboard'}>
+          <Link to={'dashboard'}>
               Player-Dashboard
               
           </Link>

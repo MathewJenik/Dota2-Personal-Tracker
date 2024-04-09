@@ -3,8 +3,11 @@ import './Home.css'
 
 const Home = () => {
   return (
-    <section className='bg-dark-charcoal flex'>
+    <section className='home-container bg-dark-charcoal flex'>
       
+      {
+        // Hero Section
+      }
       <div className='hero grid grid-cols-1 lg:grid-cols-2 m-10 w-full'>
 
         <h1 className='text-white text-4xl flex flex-row justify-center items-center'>Dota 2 Personal Stat Tracker</h1>
@@ -15,6 +18,32 @@ const Home = () => {
           <input className='border' placeholder='Password' type='password'></input>
           <button className=''>Register</button>
         </div>
+
+      </div>
+
+      {
+        // Website information
+      }
+      <div className="alternate-bg">
+        
+        <div className="split-container-right">
+          <img src='/assets/images/general/DPST.webp'></img>
+          <div className='split-info'>
+            <h1>Recent Match Statistics</h1>
+
+          </div>
+        
+        </div>
+        
+        <div className="split-container-left">
+          <div className='split-info'>
+            <h1>Post Match Analytics</h1>
+
+          </div>
+          <img src='/assets/images/general/DPST Match.webp'></img>
+        
+        </div>
+        
 
       </div>
     </section>
