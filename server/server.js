@@ -12,6 +12,9 @@ const mongoose = require('mongoose')
 const { logEvents } = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
 
+const BASEURL = process.env.BASEURL;
+const editBASEURL = "/" + BASEURL
+
 const passport = require('passport')
 const SteamStrategy = require('passport-steam')
 const mailchimp = require('@mailchimp/mailchimp_marketing')
@@ -46,30 +49,30 @@ passport.use( new SteamStrategy({
 */
 
 // used to point express to static files (css files)
-app.use('/', express.static(path.join(__dirname, '/public')))
-app.use('/', require('./routes/root.js'))
+app.use(`${editBASEURL}`, express.static(path.join(__dirname, '/public')))
+app.use(`${editBASEURL}`, require('./routes/root.js'))
 
 
 // route for Auth
-app.use('/auth', require('./routes/authRoutes.js'))
+app.use(`${editBASEURL}/auth`, require('./routes/authRoutes.js'))
 
 // route for the user
-app.use('/users', require('./routes/userRoutes.js'))
+app.use(`${editBASEURL}/users`, require('./routes/userRoutes.js'))
 
 // route for the Hero
-app.use('/heroes', require('./routes/heroRoutes.js'))
+app.use(`${editBASEURL}/heroes`, require('./routes/heroRoutes.js'))
 
 // route for the Item
-app.use('/items', require('./routes/itemRoutes.js'))
+app.use(`${editBASEURL}/items`, require('./routes/itemRoutes.js'))
 
 // route for the Ability
-app.use('/abilities', require('./routes/abilityRoutes.js'))
+app.use(`${editBASEURL}/abilities`, require('./routes/abilityRoutes.js'))
 
 // route for the dota api
-app.use('/dota', require('./routes/dotaAPIRoutes.js'))
+app.use(`${editBASEURL}/dota`, require('./routes/dotaAPIRoutes.js'))
 
 // route for the Matches (Match)
-app.use('/matches', require('./routes/matchRoutes.js'))
+app.use(`${editBASEURL}/matches`, require('./routes/matchRoutes.js'))
 
 // 404 page setup
 app.all('*', (req, res) => {
