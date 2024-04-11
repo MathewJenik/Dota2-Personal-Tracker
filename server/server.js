@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 const { logEvents } = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
 
-const BASEURL = process.env.BASEURL;
+const BASEURL = process.env.BACKEND_BASE_URL;
 const editBASEURL = "/" + BASEURL
 
 const passport = require('passport')
