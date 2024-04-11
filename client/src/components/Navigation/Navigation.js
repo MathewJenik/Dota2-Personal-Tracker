@@ -21,14 +21,17 @@ const Navigation = () => {
       setDashExpand(true);
     }
 
+    const base = process.env.REACT_APP_BASE_URL;
+    console.log("ENVIRONMENT VARIALBE IS: ", base)
+
   return (
     <div className={`nav-bar ${dashExpand ? 'nav-bar-expanded' : ''}`}>
-        <Link to={'/'}>Dota 2 Personal Stat Tracker</Link>
-        <Link to={'/heroes'}>Heroes</Link>
-        <Link to={'/items'}>Items</Link>
+        <Link to={`/${base}`}>Dota 2 Personal Stat Tracker</Link>
+        <Link to={`/${base}/heroes`}>Heroes</Link>
+        <Link to={`/${base}/items`}>Items</Link>
         {username && (
           <div className='nav-expandable' onMouseEnter={dashExpandToggle} onMouseLeave={dashExpandToggle}>
-          <Link to={'/dashboard'}>
+          <Link to={'dashboard'}>
               Player-Dashboard
               
           </Link>

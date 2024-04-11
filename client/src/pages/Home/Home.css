@@ -1,4 +1,8 @@
 
+.home-container {
+  display: inline-grid;
+}
+
 .home-form {
     margin: 8em;
     margin-left: 4em;
@@ -6,26 +10,36 @@
     background-color: var(--white);
     height: 25em;
     border-radius: 2em;
-    padding: 1em
+    padding: 1em;
+
+    text-align: center;
 }
 
 /* Extra Small Devices (Phones, less than 576px) */
 @media (max-width: 575.98px) {
-    /* CSS rules for extra small devices */
+  /* CSS rules for extra small devices */
+  .home-form {
+    display: flex;
+    min-width: 15em;
+    margin-left: auto;
+    margin-right: auto;
   }
   
-  /* Small Devices (Phones, 576px and up) */
-  @media (min-width: 576px) {
-    /* CSS rules for small devices */
+}
+
+/* Small Devices (Phones, 576px and up) */
+@media (min-width: 576px) {
+  /* CSS rules for small devices */
+}
+
+
+/* Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px) {
+  /* CSS rules for medium devices */
+  .home-form {
+      display: flex;
   }
-  
-  /* Medium Devices (Tablets, 768px and up) */
-  @media (min-width: 768px) {
-    /* CSS rules for medium devices */
-    .home-form {
-        display: flex;
-    }
-  }
+}
   
   /* Large Devices (Desktops, 992px and up) */
   @media (min-width: 992px) {

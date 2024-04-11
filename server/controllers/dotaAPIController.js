@@ -7,7 +7,7 @@ const util = require('util');
 const asyncHandler = require('express-async-handler');
 const Match = require('../models/Match');
 const { createMatch, createMatchFromOBJ } = require('./matchController');
-const { createPlayerMatch } = require('./PlayerMatchController');
+const { createPlayerMatch } = require('./playerMatchController');
 const PlayerMatch = require('../models/PlayerMatch');
 
 
