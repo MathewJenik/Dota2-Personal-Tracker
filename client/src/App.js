@@ -52,7 +52,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/dpst" element={<Layout />}>
         {/* public facing open pages*/}
         <Route index element={<Home />}/>
 
