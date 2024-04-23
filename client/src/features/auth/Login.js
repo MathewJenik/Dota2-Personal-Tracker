@@ -75,7 +75,7 @@ const Login = () => {
 
             
             <label htmlFor='password'>Password: </label>
-            <input id='password' placeholder='Password' onChange={handlePasswordInput}  required></input>
+            <input type='password' id='password' placeholder='Password' onChange={handlePasswordInput}  required></input>
 
             <button>Sign In</button>
 
