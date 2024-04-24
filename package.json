@@ -27,6 +27,7 @@
     "jwt-decode": "^4.0.0",
     "mongoose": "^8.1.0",
     "mongoose-sequence": "^6.0.0",
+    "node-fetch": "^3.3.2",
     "passport": "^0.7.0",
     "passport-steam": "^1.0.18",
     "resend": "^3.2.0",
