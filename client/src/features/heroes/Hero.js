@@ -55,8 +55,8 @@ const Hero = ({heroId, adminMode}) => {
       for (const ability in abilString) {
         console.log("EACH ABILITY FOUND: ", abilString[ability]._id)
         const imgLoc = await LoadAbility(abilString[ability]._id);
-        imageLocs.push(imgLoc.imageLoc);
-        imageIDs.push(imgLoc._id);
+        imageLocs.push(abilString[ability].imageLoc);
+        imageIDs.push(abilString[ability]._id);
       }
       setAbilityImageLocs(imageLocs);
       setAbilityIDs(imageIDs);
@@ -81,6 +81,7 @@ const Hero = ({heroId, adminMode}) => {
 
 
     const itemImageLoc = hero.imageLoc.toString()
+
 
 
     return(

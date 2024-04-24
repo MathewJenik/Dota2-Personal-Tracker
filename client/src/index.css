@@ -12,6 +12,13 @@
   --direred: #FF5252;
 }
 
+button {
+  cursor: pointer;
+  background-color: var(--blue) !important;
+  color: #ffffff;
+  padding: 1em !important;
+}
+
 .alternate-bg {
   background-color: var(--light-charcoal);
 }
