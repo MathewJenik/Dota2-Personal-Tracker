@@ -137,6 +137,7 @@ code {
 
 .hero {
   min-height: 25em;
+  margin: auto !important;
 }
 
 .form {

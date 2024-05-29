@@ -15,6 +15,21 @@
     text-align: center;
 }
 
+.split-container-left {
+  display: inline-block;
+  margin: 1em;
+  border: 2px solid var(--blue);
+  
+  flex-direction: row-reverse;
+}
+
+.split-container-right {
+  display: inline-block;
+  margin: 1em;
+  border: 2px solid var(--blue);
+  
+}
+
 /* Extra Small Devices (Phones, less than 576px) */
 @media (max-width: 575.98px) {
   /* CSS rules for extra small devices */
@@ -24,12 +39,70 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .hero {
+    padding-top: 4em;
+  }
   
+
+  .split-container-left {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid var(--blue);
+  }
+
+  .split-container-right {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid var(--blue);
+    
+    flex-direction: row-reverse;
+  }
+  .split-container-right * {
+    width: 100% !important;
+  }
+  .split-container-left * {
+    width: 100% !important;
+  }
+
+  .split-info > * {
+    margin-top: 0%;
+  }
+
 }
 
 /* Small Devices (Phones, 576px and up) */
 @media (min-width: 576px) {
   /* CSS rules for small devices */
+  .hero {
+    padding-top: 4em;
+  }
+
+  .split-container-left {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid var(--blue);
+    flex-direction: row-reverse;
+  }
+
+  .split-container-right {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid var(--blue);
+  }
+  .split-container-right * {
+    width: 100% !important;
+  }
+  .split-container-left * {
+    width: 100% !important;
+  }
+  
+  .split-info > * {
+    margin-top: 0%;
+  }
+
+
+
 }
 
 
@@ -39,11 +112,57 @@
   .home-form {
       display: flex;
   }
+
+  .hero {
+    padding-top: 4em;
+  }
+
+  .split-container-left {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid var(--blue);
+    flex-direction: row-reverse;
+  }
+
+  .split-container-right {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid var(--blue);
+  }
+  .split-container-right * {
+    width: 100% !important;
+    margin: auto;
+  }
+  .split-container-left * {
+    width: 100% !important;
+    margin: auto;
+  }
+
+  .split-info > * {
+    margin-top: 0%;
+  }
+
 }
   
   /* Large Devices (Desktops, 992px and up) */
   @media (min-width: 992px) {
     /* CSS rules for large devices */
+
+    .split-container-left {
+      display: flex;
+      margin: 1em;
+      border: 2px solid var(--blue);
+      flex-direction: row;
+    }
+  
+    .split-container-right {
+      display: flex;
+      margin: 1em;
+      border: 2px solid var(--blue);
+      flex-direction: row-reverse;
+    }
+
+
   }
   
   /* Extra Large Devices (Large Desktops, 1200px and up) */

@@ -27,11 +27,11 @@ const Home = () => {
       <div className="alternate-bg">
         
         <div className="split-container-right">
-          <img src='/assets/images/general/DPST.webp'></img>
           <div className='split-info'>
             <h1>Recent Match Statistics</h1>
 
           </div>
+          <img src='/assets/images/general/DPST.webp'></img>
         
         </div>
         

@@ -27,3 +27,96 @@
 .secondary-nav {
     background-color: var(--light-charcoal);
 }
+
+
+
+
+/* */
+
+
+/* Extra Small Devices (Phones, less than 576px) */
+@media (max-width: 575.98px) {
+    /* CSS rules for extra small devices */
+
+    /* Burger Menu */
+
+}
+
+/* Small Devices (Phones, 576px and up) */
+@media (min-width: 576px) {
+/* CSS rules for small devices */
+
+
+    /* Burger Menu */
+
+}
+
+
+/* Medium Devices (Tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Large Devices (Desktops, 992px and up) */
+@media (min-width: 992px) {
+    /* CSS rules for large devices */
+
+
+}
+
+/* Extra Large Devices (Large Desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    /* CSS rules for extra large devices */
+}
+
+/* High DPI (Retina) Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* CSS rules for high DPI displays */
+}
+
+/* Portrait Orientation (for both phones and tablets) */
+@media (orientation: portrait) {
+    /* CSS rules for portrait orientation */
+}
+
+/* Landscape Orientation (for both phones and tablets) */
+@media (orientation: landscape) {
+    /* CSS rules for landscape orientation */
+}
+
+
+
+
+
+
+/* */
+/* Navigation.css */
+
+.nav-bar {
+    position: relative;
+  }
+  
+  .burger-menu {
+    display: none;
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  
+  @media (max-width: 768px) {
+    .burger-menu {
+      display: block;
+    }
+  
+    .nav-links {
+        display: none;
+    }
+
+    .nav-links.open {
+        display: grid;
+      }
+
+  }
+  
